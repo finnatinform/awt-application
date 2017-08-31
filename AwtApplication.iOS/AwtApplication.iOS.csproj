@@ -24,6 +24,8 @@
     <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer: finn.zentgraf@inform-software.com (63K2U6R3FM)</CodesignKey>
+    <CodesignProvision>iOS Team Provisioning Profile: com.awtapplication</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>
@@ -60,10 +62,11 @@
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: finn.zentgraf@inform-software.com (63K2U6R3FM)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchI18n>
     </MtouchI18n>
+    <CodesignProvision>iOS Team Provisioning Profile: com.awtapplication</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
