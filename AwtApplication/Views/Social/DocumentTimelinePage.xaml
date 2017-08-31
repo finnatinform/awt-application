@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared"
+	xmlns:local="clr-namespace:AwtApplication;assembly=AwtApplication"
+	x:Class="AwtApplication.DocumentTimelinePage"
+	BackgroundColor="{ DynamicResource BasePageColor }"
+	Title="Veranstaltungen">
+	
+	<ContentPage.Resources>
+		<ResourceDictionary>
+
+			<artina:BoolMemberTemplateSelector x:Key="Selector" MemberName="IsInbound">
+				
+				<artina:BoolMemberTemplateSelector.TrueDataTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<local:DocumentTimelineRightItemTemplate />
+						</ViewCell>
+					</DataTemplate>
+				</artina:BoolMemberTemplateSelector.TrueDataTemplate>
+				
+				<artina:BoolMemberTemplateSelector.FalseDataTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<local:DocumentTimelineLeftItemTemplate />
+						</ViewCell>
+					</DataTemplate>
+				</artina:BoolMemberTemplateSelector.FalseDataTemplate>
+				
+			</artina:BoolMemberTemplateSelector>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	
+	<ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" IsVisible="true" x:Name="PageContent">
+                <ListView
+                    x:Name="EventListView"
+			CachingStrategy="RecycleElement"
+			ItemsSource="{ Binding DocumentTimelineList }"  
+			SeparatorVisibility="None"
+			BackgroundColor="Transparent"
+			HasUnevenRows="true"
+			ItemTemplate="{ StaticResource Selector }"
+			VerticalOptions="FillAndExpand"
+            ItemTapped="OnItemSelected">
+		</ListView>
+            </StackLayout>
+            <ActivityIndicator 
+            x:Name="PageLoading"
+            IsVisible="false" 
+            IsRunning="True" 
+            AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" 
+            HorizontalOptions="CenterAndExpand" />
+        </AbsoluteLayout>
+    </ContentPage.Content>
+
+</ContentPage>

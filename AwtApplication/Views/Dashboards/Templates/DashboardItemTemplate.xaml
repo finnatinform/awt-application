@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:DashboardItemTemplateBase
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared"
+	xmlns:converter="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared.Base"
+	xmlns:local="clr-namespace:AwtApplication" 
+	xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+	xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+	x:Class="AwtApplication.DashboardItemTemplate"
+	x:Name="Root"
+	BackgroundColor="{ DynamicResource BasePageColor }">
+
+	<ContentView.Resources>
+		<ResourceDictionary>
+			<converter:GreaterThanZeroConverter
+				x:Key="DashboardItemBadgeVisibleConverter" />
+		</ResourceDictionary>
+	</ContentView.Resources>
+	
+	<ContentView.Content>
+		<Grid Padding="0">
+			<BoxView 
+				BackgroundColor="{Binding BackgroundColor}"
+				HorizontalOptions="FillAndExpand" 
+				VerticalOptions="FillAndExpand" InputTransparent="true"
+				IsVisible="{Binding Source={x:Reference Root}, Path=ShowBackgroundColor}"/>
+
+
+			<ffimageloading:CachedImage 
+				FadeAnimationEnabled="true"
+				Source="{Binding BackgroundImage}" 
+				Aspect="AspectFill"
+				Opacity=".4"
+				VerticalOptions="Fill"
+				HorizontalOptions="Fill"
+				IsVisible="{Binding Source={x:Reference Root}, Path=ShowBackgroundImage}"/>
+
+			<StackLayout 
+				VerticalOptions="Center"
+				HorizontalOptions="Center"
+				Orientation="Vertical"
+				Spacing="10">
+				
+				<Grid>
+
+					<Label
+						Style="{StaticResource DashboardItemTemplateShape}" 
+						HorizontalTextAlignment="Center"
+						TextColor="{Binding BackgroundColor}"
+						VerticalOptions="Center"
+						HorizontalOptions="Center"
+						IsVisible="{Binding Source={x:Reference Root}, Path=ShowiconColoredCircleBackground}"
+					/>
+
+					<Label
+						Text="{Binding Icon}"
+						
+            TextColor="{Binding IconColor}"
+						HorizontalTextAlignment="Center"
+						VerticalOptions="Center"
+						HorizontalOptions="Center"
+						/>
+
+					<local:Badge 
+						Style="{ StaticResource DashboardBadgeStyle }"
+						BadgeText="{ Binding Badge }" 
+						BadgeTextColor="#FFF" 
+						BadgeBackgroundColor="{ DynamicResource OkColor }"
+						HorizontalOptions="Center"
+						VerticalOptions="Start"
+						TranslationX="20"
+						TranslationY="-4"
+						IsVisible="{	
+							Binding Badge, 
+							Converter={ StaticResource DashboardItemBadgeVisibleConverter }
+						}"
+					/>	
+					
+				</Grid>
+
+				<Label 
+					Text="{Binding Name}" 
+					TextColor="{Binding IconColor}"
+					HorizontalTextAlignment="Center"
+					FontSize="{ artina:OnOrientationDouble
+						PortraitPhone=16,
+						LandscapePhone=16,
+						PortraitTablet=18,
+						LandscapeTablet=18 }">
+
+				</Label>
+			</StackLayout>
+
+		</Grid>
+	</ContentView.Content>
+	<ContentView.GestureRecognizers>
+		<TapGestureRecognizer Tapped="OnWidgetTapped" />
+	</ContentView.GestureRecognizers>
+</local:DashboardItemTemplateBase>

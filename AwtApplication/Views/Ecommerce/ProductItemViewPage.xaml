@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="AwtApplication.ProductItemViewPage"
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared" 
+	xmlns:local="clr-namespace:AwtApplication;assembly=AwtApplication" 
+	xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+	xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+	Title="{Binding Name}"
+	BackgroundColor="{ DynamicResource BasePageColor }">
+	
+	<Grid 
+		RowSpacing="0"
+		VerticalOptions="Fill">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="60*" />
+			<RowDefinition Height="40*" />
+			<RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<!--PRODUCT IMAGE-->
+		<ffimageloading:CachedImage 
+			Grid.Row="0"
+			FadeAnimationEnabled="true"
+			Source="{Binding REFERENT_IMAGE}" 
+			Aspect="AspectFill" >
+		</ffimageloading:CachedImage>
+
+		<!-- FAVORITE ICON -->
+		<Label
+			Grid.Row="0"
+			Text="{ Binding GRIAL_ICON } " 
+			FontSize="{ artina:OnOrientationDouble 
+				Default=28, 
+				PortraitPhone=28,
+				LandscapePhone=28,
+				PortraitTablet=38,
+				LandscapeTablet=32 }" 
+			TextColor="{ DynamicResource AccentColor }" 
+			Style="{ StaticResource FontIcon }"
+			HorizontalTextAlignment="End" 
+			VerticalTextAlignment="Start"
+			Margin="0,15,20,0"/>
+
+		<!-- PRODUCT INFO -->
+        <Grid
+			Grid.Row="1"
+			Padding="20,15,20,0"
+			VerticalOptions="StartAndExpand"
+			RowSpacing="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- PRODUCT NAME -->
+            <Label
+				Grid.Row="0"
+				Text="{Binding CAPTION}"
+				FontSize="{ artina:OnOrientationDouble 
+					PortraitPhone=18,
+					LandscapePhone=18,
+					PortraitTablet=28,
+					LandscapeTablet=28 }"
+				FontAttributes="Bold"
+				HorizontalTextAlignment="Start"
+				TextColor="{ DynamicResource BaseTextColor }"/>
+
+            <!-- MANUFACTURER -->
+            <Label
+				Grid.Row="1"
+				Text="{Binding START_DATE}}"
+				FontSize="{ artina:OnOrientationDouble
+					PortraitPhone=10,
+					LandscapePhone=10,
+					PortraitTablet=16,
+					LandscapeTablet=16 }"
+				HorizontalOptions="Fill"
+				TextColor="{ DynamicResource AccentColor }"/>
+            <Label
+				Grid.Row="2"
+				Text="{Binding PLACE}}"
+				FontSize="{ artina:OnOrientationDouble
+					PortraitPhone=10,
+					LandscapePhone=10,
+					PortraitTablet=16,
+					LandscapeTablet=16 }"
+				HorizontalOptions="Fill"
+				TextColor="{ DynamicResource AccentColor }"/>
+            <Label
+				Grid.Row="3"
+				Text="{Binding REFERENT_NAME, StringFormat='By {0:F0}'}}"
+				FontSize="{ artina:OnOrientationDouble
+					PortraitPhone=10,
+					LandscapePhone=10,
+					PortraitTablet=16,
+					LandscapeTablet=16 }"
+				HorizontalOptions="Fill"
+				TextColor="{ DynamicResource AccentColor }"/>
+            <Label
+                x:Name="LabelReserved"
+				Grid.Row="4"
+				Text="Veranstaltung bereits vorgemerkt"
+                IsVisible="{Binding USER_HAS_RESERVED}"
+				FontSize="{ artina:OnOrientationDouble
+					PortraitPhone=10,
+					LandscapePhone=10,
+					PortraitTablet=16,
+					LandscapeTablet=16 }"
+				HorizontalOptions="Fill"
+				TextColor="{ DynamicResource AccentColor }"/>
+
+            <!-- DESCRIPTION -->
+            <ScrollView
+				Grid.Row="5"
+				Padding="0,10,0,0">
+                <StackLayout
+					Spacing="15">
+                    <Label
+						Text="{Binding DESCRIPTION}" 
+						HorizontalOptions="Fill"
+						TextColor="{ DynamicResource BaseTextColor }"
+						FontSize="{ artina:OnOrientationDouble
+							PortraitPhone=15,
+							LandscapePhone=15,
+							PortraitTablet=18,
+							LandscapeTablet=18 }"/>
+                    <BoxView 
+						Style="{StaticResource BrandNameOrnamentStyle}"
+						BackgroundColor="{ DynamicResource AccentColor }"/>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+        <Grid 
+        Grid.Row="2"
+		ColumnSpacing="0"
+		HorizontalOptions="Fill"
+        HeightRequest="40"
+        IsVisible="{Binding GIVE_RATE_OPTION}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
+            <local:Rating
+                Grid.Column="0"
+                Margin="0,0,0,0"
+                Value="0"
+                Max="1"
+                WidthRequest="40"
+                HeightRequest="40"
+                
+                x:Name="Rating1">
+                <local:Rating.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </local:Rating.GestureRecognizers>
+            </local:Rating>
+            <local:Rating
+                Grid.Column="1"
+                Margin="0,0,0,0"
+                Value="0"
+                Max="1"
+                WidthRequest="40"
+                HeightRequest="40"
+                x:Name="Rating2">
+                <local:Rating.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </local:Rating.GestureRecognizers>
+            </local:Rating>
+            <local:Rating
+                Grid.Column="2"
+                Margin="0,0,0,0"
+                Value="0"
+                Max="1"
+                WidthRequest="40"
+                HeightRequest="40"
+                x:Name="Rating3">
+                <local:Rating.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </local:Rating.GestureRecognizers>
+            </local:Rating>
+            <local:Rating
+                Grid.Column="3"
+                Margin="0,0,0,0"
+                Value="0"
+                Max="1"
+                WidthRequest="40"
+                HeightRequest="40"
+                x:Name="Rating4">
+                <local:Rating.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </local:Rating.GestureRecognizers>
+            </local:Rating>
+            <local:Rating
+                Grid.Column="4"
+                Margin="0,0,0,0"
+                Value="0"
+                Max="1"
+                WidthRequest="40"
+                HeightRequest="40"
+                x:Name="Rating5">
+                <local:Rating.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </local:Rating.GestureRecognizers>
+            </local:Rating>
+        </Grid>
+
+        <artina:Button
+            x:Name="ReserveButton"
+			Grid.Row="3"
+			Margin="20,10,20,20"
+			Style="{StaticResource PrimaryActionButtonStyle}" 
+            IsVisible="{Binding GIVE_RESERVE_OPTION}"
+			Text="Platz reservieren"
+            Clicked="ReserveEvent"
+			WidthRequest="{ artina:OnOrientationDouble
+				LandscapePhone=200,
+				LandscapeTablet=400 }"
+			HorizontalOptions="{ artina:OnOrientationLayoutOptions
+				PortraitPhone=Fill,
+				LandscapePhone=Center,
+				PortraitTablet=Fill,
+				LandscapeTablet=Center }"/>
+        <artina:Button
+            x:Name="FeedbackButton"
+			Grid.Row="3"
+            IsVisible="False"
+			Margin="20,10,20,20"
+			Style="{StaticResource PrimaryActionButtonStyle}" 
+			Text="Feedback absenden"
+            Clicked="SendFeedback"
+			WidthRequest="{ artina:OnOrientationDouble
+				LandscapePhone=200,
+				LandscapeTablet=400 }"
+			HorizontalOptions="{ artina:OnOrientationLayoutOptions
+				PortraitPhone=Fill,
+				LandscapePhone=Center,
+				PortraitTablet=Fill,
+				LandscapeTablet=Center }"/>
+
+    </Grid>	
+
+</ContentPage>

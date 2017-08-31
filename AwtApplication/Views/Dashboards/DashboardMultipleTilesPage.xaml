@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:local="clr-namespace:AwtApplication;assembly=AwtApplication"
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared"
+	x:Class="AwtApplication.DashboardMultipleTilesPage"
+	Title = "Herzlich Willkommen"
+	BackgroundColor="{ DynamicResource BasePageColor }">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <artina:BoolMemberTemplateSelector x:Key="Selector" MemberName="IsNotification">
+                <artina:BoolMemberTemplateSelector.FalseDataTemplate>
+                    <DataTemplate>
+                        <local:DashboardVariantItemTemplate 
+							ShowBackgroundImage="true"
+							ShowBackgroundColor="true"
+							ShowiconColoredCircleBackground="false"
+							TextColor="{ DynamicResource DashboardIconColor }"
+							WidthRequest="145"
+							HeightRequest="145"/>
+                    </DataTemplate>
+                </artina:BoolMemberTemplateSelector.FalseDataTemplate>
+
+            </artina:BoolMemberTemplateSelector>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView Orientation="Both">
+		<artina:GridOptionsView 
+			WidthRequest="320"
+			Margin="0"
+			Padding="10"
+			ColumnSpacing="10" 
+			RowSpacing="10" 
+			ColumnCount="2"
+			ItemsSource="{Binding DashboardMutipleTilesList}"
+			ItemTemplate="{StaticResource Selector}" />
+	</ScrollView>
+</ContentPage>

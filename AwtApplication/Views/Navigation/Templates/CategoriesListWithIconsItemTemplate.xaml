@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="AwtApplication.CategoriesListWithIconsItemTemplate"
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared"
+	xmlns:local="clr-namespace:AwtApplication;assembly=AwtApplication">
+
+		<StackLayout 
+			Spacing="0" 
+			Padding="0" 
+			HorizontalOptions="Fill" >
+
+			<StackLayout
+				Spacing="20"
+				Padding="0, 0, 0, 0" 
+				HorizontalOptions="FillAndExpand"
+				VerticalOptions="FillAndExpand" 
+				Orientation="Horizontal" >
+
+				<BoxView 
+					BackgroundColor="{ Binding BackgroundColor }" 
+					WidthRequest="10"/>
+
+				<Label 
+					Text="{ Binding ICON }"
+					Style="{ StaticResource FontIcon }"
+					TextColor="{ Binding BackgroundColor }" 
+					HorizontalOptions="Start"
+					VerticalTextAlignment="Center" 
+					HorizontalTextAlignment="Center">
+						<Label.FontSize>
+							<OnIdiom x:TypeArguments="x:Double"
+								Phone="30"
+								Tablet="40"/>
+						</Label.FontSize>
+				</Label>
+
+				<Label 
+					Text="{ Binding CAPTION }" 
+					HorizontalOptions="FillAndExpand"
+					VerticalOptions="Center" 
+					FontSize="18"/>
+				<Label 
+					WidthRequest="20"
+					HorizontalOptions="End"
+					TextColor="{ Binding BackgroundColor }"
+					Style="{ StaticResource MainMenuRightChevronStyle }"
+					Margin="0,0,20,0"/>
+			
+			</StackLayout>
+
+			<!-- Bottom Line -->
+			<BoxView 
+				BackgroundColor="{ Binding BackgroundColor }" 
+				HeightRequest="1" 
+				VerticalOptions="End"
+				Opacity=".5"/>
+
+	</StackLayout>
+
+</ContentView>

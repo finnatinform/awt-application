@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="AwtApplication.LockScreen"
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared"
+	xmlns:local="clr-namespace:AwtApplication;assembly=AwtApplication"
+	
+	Title="Password Recovery">
+    <!--MAIN CONTAINER-->
+	<Grid>
+		<!---BACKGROUND IMAGE-->
+	 	<Image Style="{StaticResource PasswordRecoveryBackgroundImage}"/>
+
+		<ScrollView
+			Padding="{ StaticResource MainWrapperPadding }">
+
+			<!---MAIN CONTAINER-->
+			<Grid 
+				ColumnSpacing="0" 
+				RowSpacing="0" 
+				HorizontalOptions="Fill"
+				VerticalOptions="FillAndExpand" >
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="120" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="100" />
+				</Grid.RowDefinitions>
+
+				<!-- LOGO -->
+                <Grid 
+					Grid.Row="0" 
+					WidthRequest="60"
+					HeightRequest="60"
+					Margin="20"
+					VerticalOptions="End"
+					HorizontalOptions="Start">
+                    <Image
+				Source="@drawable/icon" 
+				HorizontalOptions="Center"
+				Aspect="AspectFill"
+				WidthRequest="60" 
+				HeightRequest="60"
+				VerticalOptions="Center" />
+                </Grid>
+
+                <!--CLAIM TEXT-->
+				<StackLayout
+					Grid.Row="1"
+					Spacing="10"
+					Padding="20,10"
+					Orientation="Vertical"
+					VerticalOptions="Center">
+					<Label
+						LineBreakMode="WordWrap"
+						Text="Herzlich Willkommen"
+						TextColor="{ DynamicResource OverImageTextColor }"
+						VerticalTextAlignment="Center"
+						FontAttributes="Bold"
+						AbsoluteLayout.LayoutFlags="All">
+					       <Label.FontSize> 
+								<OnIdiom x:TypeArguments="x:Double"
+										 Phone="26"
+										 Tablet="36"/>
+									</Label.FontSize>
+							</Label>
+                    <Label
+							LineBreakMode="WordWrap"
+							Text="Die INFORM begrüßt Sie beim Anwendertreffen 2017"
+							TextColor="{ DynamicResource OverImageTextColor }"
+							VerticalTextAlignment="Center"
+							FontSize="36"
+							AbsoluteLayout.LayoutFlags="All">
+                        <Label.FontSize>
+                            <OnIdiom x:TypeArguments="x:Double"
+										     Phone="17"
+										     Tablet="27"/>
+                        </Label.FontSize>
+                    </Label>
+                </StackLayout>
+
+				<!---FIELDS CONTAINER-->
+				<Grid 
+					Padding="40,0"
+					VerticalOptions="CenterAndExpand"
+					Grid.Row="2">
+
+					<StackLayout
+						Grid.Row="0"
+						VerticalOptions="StartAndExpand" >
+						<!---EMAIL FIELD-->
+                        <Entry
+							Placeholder="Freischaltungscode"
+							Style="{StaticResource ArtinaLoginEntryStyle}"
+                            TextChanged="EntryCodeChanged"
+                            x:Name="EntryUnlockApp">
+                        </Entry>
+                    </StackLayout>
+				</Grid>
+
+
+
+				<!-- FOOTER -->
+				<StackLayout 
+					HorizontalOptions="Fill"
+					VerticalOptions="EndAndExpand" 
+					Padding="20"
+					Grid.Row="3" >
+
+					<artina:Button
+                        x:Name="UnlockButton"
+						Style="{StaticResource PrimaryActionButtonStyleInverted}"
+						VerticalOptions="End" 
+						Text="Applikation freischalten"
+                        Clicked="OnTryToUnlock"
+						WidthRequest="{ artina:OnOrientationDouble
+							LandscapePhone=200,
+							LandscapeTablet=400 }"
+						HorizontalOptions="{ artina:OnOrientationLayoutOptions
+							PortraitPhone=Fill,
+							LandscapePhone=Center,
+							PortraitTablet=Fill,
+							LandscapeTablet=Center }"/>
+                    <Label
+							LineBreakMode="NoWrap"
+							Text="Mit dem Freischalten stimmen Sie den Nutzungsbedingungen zu."
+							TextColor="{ DynamicResource OverImageTextColor }"
+							VerticalTextAlignment="Center"
+							FontSize="6"
+                            HorizontalTextAlignment="Center"
+                        WidthRequest="{ artina:OnOrientationDouble
+							LandscapePhone=200,
+							LandscapeTablet=400 }"
+						HorizontalOptions="{ artina:OnOrientationLayoutOptions
+							PortraitPhone=Fill,
+							LandscapePhone=Center,
+							PortraitTablet=Fill,
+							LandscapeTablet=Center }"
+                        >
+                        <ContentView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnReadAGB" />
+                        </ContentView.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+
+			</Grid>
+		</ScrollView>
+	</Grid>
+</ContentPage>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:local="clr-namespace:AwtApplication;assembly=AwtApplication"
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared"
+	x:Class="AwtApplication.TimelinePage"
+	Title="Ihre Ansprechpartner"
+	BackgroundColor="{ DynamicResource MainWrapperBackgroundColor }">
+
+    <ContentPage.Content>
+        <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" IsVisible="true" x:Name="PageContent">
+            <ListView
+            x:Name="ReferentListView"
+			ItemsSource="{ Binding ReferentList }" 
+			SeparatorVisibility="None"
+			BackgroundColor="{ DynamicResource BasePageColor }"
+			HasUnevenRows="true"
+            ItemSelected="ItemSelected"
+            >
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <local:TimelineItemTemplate
+							Padding="{ StaticResource MainWrapperPadding }"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+            </StackLayout>
+        <ActivityIndicator 
+            x:Name="PageLoading"
+            IsVisible="false" 
+            IsRunning="True" 
+            AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" 
+            HorizontalOptions="CenterAndExpand" />
+        </AbsoluteLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

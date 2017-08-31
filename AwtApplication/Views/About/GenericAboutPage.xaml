@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="AwtApplication.GenericAboutPage"
+	Title="Nutzungsbedingungen/Datenschutzbestimmungen"
+	BackgroundColor="{ DynamicResource BasePageColor }">
+    <ContentPage.Resources>
+        <!-- PAGE RESOURCES, CAN BE MOVED TO APP.XAML-->
+        <ResourceDictionary>
+            <Style x:Key="AboutText" TargetType="Label" >
+                <Setter Property="TextColor" Value="{ DynamicResource BaseTextColor }" />
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+
+            <Style x:Key="AboutTitle" 
+					TargetType="Label" 
+					BaseResourceKey="GenericAboutText">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="TextColor" Value="{ DynamicResource BaseTextColor }" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+		<ScrollView 
+			Padding="40,50,40,0">
+			<Grid RowSpacing="60">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!--VS PARTNER LOGO-->
+				<Image
+					Grid.Row="0"
+					Source="inform_logo.png"
+					WidthRequest="130"
+					HorizontalOptions="Center"
+					TranslationX="-10"/>
+
+				
+				<StackLayout 
+					Spacing="20"
+					Grid.Row="1">
+                    <!--TITLE-->
+                    <Label 
+						Style="{StaticResource AboutTitle}"
+						Text="Datenschutzbestimmungen"
+						FontAttributes="Bold"
+						HorizontalTextAlignment="Center"/>
+
+                    <!--TEXT-->
+                    <Label 
+						Style="{StaticResource AboutText}"
+						Text="Der Schutz und die Sicherheit von Ihren Daten liegt uns sehr am Herzen. Daher halten wir uns an die Regeln des deutschen Bundesdatenschutzgesetzes(BDSG). Nachfolgend finden Sie Informationen, welche Art von Daten von uns erfasst werden und warum dies geschieht."/>
+                    <Label 
+						Style="{StaticResource AboutText}"
+						Text="Beim Freischalten der Applikation sendet die mobile Applikation gerätespezifische Eigenschaften an den Web-Server. Diese Daten können keinem Nutzer zugeordnet werden und dienen der Verbesserung unserer mobilen Dienstleistungen. Die Daten beinhalten z.B. das Gerätemodell, das Betriebsystem sowie die Softwareversion ebendieses. Diese Daten werden nicht an Dritte weitergegeben und dienen nur internen Analysezwecken."/>
+                    <Label 
+						Style="{StaticResource AboutText}"
+						Text="Während der Nutzung der Applikation werden Sie ggf. gefragt, ob Sie Feedback zu bestimmten Events abgeben wollen. Diese Rückmeldungen werden, ebenso wie die Möglichkeit ein Event vorzumerken, ebenfalls auf dem Server gespeichert und dienen der Verbesserung unseres Angebots. Die Daten können keinem Nutzer zugeordnet werden und werden nicht an Dritte weitergegeben."/>
+
+                    </StackLayout>
+                <StackLayout 
+					Spacing="20"
+					Grid.Row="2">
+                    <!--TITLE-->
+                    <Label 
+						Style="{StaticResource AboutTitle}"
+						Text="Nutzungsbedingungen"
+						FontAttributes="Bold"
+						HorizontalTextAlignment="Center"/>
+
+                    <!--TEXT-->
+                    <Label 
+						Style="{StaticResource AboutText}"
+						Text="Diese mobile Applikation ist ein Service der INFORM GmbH. Die Inhalte der Applikation wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Unser Angebot enthält Links zu Applikationen Dritter, auf deren Inhalte wir keinen Einfluss haben. Daher können wir für diese fremden Inhalt ebenfalls keine Gewähr übernehmen. "/>
+                    <Label 
+						Style="{StaticResource AboutText}"
+						Text="Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet."/>
+
+                </StackLayout>
+
+                <StackLayout 
+					Spacing="20"
+					Grid.Row="3">
+
+                    <!--TITLE-->
+                    <Label 
+						Style="{StaticResource AboutTitle}"
+						Text="Special thanks"
+						FontAttributes="Bold"
+						HorizontalTextAlignment="Center"/>
+
+                    <!--TEXT-->
+                    <Label 
+						Style="{StaticResource AboutText}"
+                        HorizontalTextAlignment="Center"
+						Text="Finn Zentgraf"/>
+                </StackLayout>
+            </Grid>	
+
+		</ScrollView>
+	</ContentPage.Content>
+</ContentPage>

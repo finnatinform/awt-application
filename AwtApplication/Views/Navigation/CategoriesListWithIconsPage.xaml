@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AwtApplication.CategoriesListWithIconsPage"
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared"
+	xmlns:local="clr-namespace:AwtApplication;assembly=AwtApplication"
+	Title="Icon Categories"
+	BackgroundColor="{ DynamicResource BasePageColor }">
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" IsVisible="true" x:Name="PageContent">
+            <ListView 
+		ItemsSource="{Binding EventList}"
+		SeparatorVisibility="None"
+		SeparatorColor="Transparent"
+		ItemTapped="OnItemTapped"
+        x:Name="EventListView"
+		HasUnevenRows="false">
+			<ListView.RowHeight>
+				<OnIdiom x:TypeArguments="x:Int32"
+					Phone="80"
+					Tablet="120"/>
+			</ListView.RowHeight>
+	
+		<ListView.ItemTemplate>
+			<DataTemplate>
+				<ViewCell>
+					<local:CategoriesListWithIconsItemTemplate/>
+				</ViewCell>
+			</DataTemplate>
+		</ListView.ItemTemplate>
+
+	</ListView>
+        </StackLayout>
+        <ActivityIndicator 
+            x:Name="PageLoading"
+            IsVisible="false" 
+            IsRunning="True" 
+            AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" 
+            HorizontalOptions="CenterAndExpand" />
+    </AbsoluteLayout>
+</ContentPage>

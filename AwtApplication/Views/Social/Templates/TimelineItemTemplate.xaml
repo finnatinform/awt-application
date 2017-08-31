@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared" 
+	x:Class="AwtApplication.TimelineItemTemplate">
+
+	<ContentView.Content>
+		<Grid 
+			ColumnSpacing="0" 
+			RowSpacing="0" 
+			Padding="20,0,10,0" 
+			VerticalOptions="Center">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <artina:CircleImage
+				Source="{ Binding ImageName }" 
+				HorizontalOptions="Center"
+				Aspect="AspectFill"
+				WidthRequest="60" 
+				HeightRequest="60"
+				VerticalOptions="Center" />
+
+			<StackLayout
+				Grid.Column="1"
+				VerticalOptions="Center" 
+				Padding="20"
+				Spacing="5">
+				
+				<Label 
+					Text="{ Binding Name }" 
+					FontAttributes="Bold" 
+					FontSize="17" 
+					TextColor="{ DynamicResource AccentColor }" 
+					HorizontalOptions="Start"/>
+
+                <Label 
+					Text="{ Binding DESCRIPTION }" 
+					FontSize="15"/>
+            </StackLayout>
+
+		</Grid>
+	</ContentView.Content>
+	
+</ContentView>
