@@ -41,6 +41,7 @@
     <Compile Include="Models\PersonalTimelineObject.cs" />
     <Compile Include="Models\Referent.cs" />
     <Compile Include="Models\ReserveObject.cs" />
+    <Compile Include="Models\Taxi.cs" />
     <Compile Include="Models\UnlockObject.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Params\Constants.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\DashboardMultipleTilesViewModel.cs" />
     <Compile Include="ViewModels\DocumentTimelineViewModel.cs" />
+    <Compile Include="ViewModels\GrialDemoSettingsViewModel.cs" />
     <Compile Include="ViewModels\ILoadingDataViewModel.cs" />
     <Compile Include="ViewModels\LockScreenViewModel.cs" />
     <Compile Include="ViewModels\ProductItemViewModel.cs" />
@@ -120,6 +122,12 @@
     </Compile>
     <Compile Include="Themes\GrialEnterpriseTheme.xaml.cs">
       <DependentUpon>GrialEnterpriseTheme.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\GrialDemoSettings.xaml.cs">
+      <DependentUpon>GrialDemoSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\Templates\TaxiItemTemplate.xaml.cs">
+      <DependentUpon>TaxiItemTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Social\DocumentTimelinePage.xaml.cs">
       <DependentUpon>DocumentTimelinePage.xaml</DependentUpon>
@@ -300,7 +308,16 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Settings\GrialDemoSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Settings\Templates\TaxiItemTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Navigation\CategoriesListWithIconsPage.xaml">
       <Generator>MSBuild:Compile</Generator>

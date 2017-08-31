@@ -11,7 +11,6 @@ namespace AwtApplication.Params
         public static string SERVER_URL = "192.168.0.59:9000"; // ""; //ec2-52-59-201-86.eu-central-1.compute.amazonaws.com:9000
         public static string STORAGE_KEY_CUSTOMER = "STORAGE_KEY_CUSTOMER" ;
         public static string STORAGE_KEY_USER = "STORAGE_KEY_USER";
-        public static string TAXI_PHONE_NUMVER = "024122222" ;
         public static char UNLOCK_KEY_SEPARATOR = '@';
 
         public static string FEEDBACK_MAIL = "charlotte.schmetz@inform-software.com";

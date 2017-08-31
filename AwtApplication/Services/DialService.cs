@@ -11,18 +11,13 @@ namespace AwtApplication.Services
 {
     class DialService
     {
-        private static void CallNumber(string _PhoneNumber)
+        public static void CallNumber(string _PhoneNumber)
         {
             Device.OpenUri(new Uri("tel://"+_PhoneNumber));
         }
         private static void SendMail( string _Mail, string _Subject )
         {
             Device.OpenUri(new Uri("mailto:"+_Mail+"?subject="+_Subject));
-        }
-
-        public static void CallTaxi()
-        {
-            CallNumber(Constants.TAXI_PHONE_NUMVER);
         }
         public static void OpenContactMail ()
         {

@@ -63,7 +63,7 @@ namespace AwtApplication
                     BackgroundImage = "",
                     Icon = GrialShapesFont.PhoneIphone,
                     Badge = 0,
-                    Callback = DialService.CallTaxi
+                    Callback = ViewService.ShowTaxi
                 },
                 new DashboardMultipleTileItem
                 {

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared" 
+	x:Class="AwtApplication.TaxiItemTemplate">
+
+    <ContentView.Content>
+        <Grid
+			VerticalOptions="Center"
+            HeightRequest="60">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackLayout
+						Grid.Column="0"
+						VerticalOptions="Center">
+                <Label 
+							Text="{ Binding CAPTION }"
+							FontAttributes="Bold"
+							HorizontalTextAlignment="Center"/>
+                <Label 
+							Text="{ Binding NUMBER }"
+							FontSize="14"
+							HorizontalTextAlignment="Center"/>
+            </StackLayout>
+            <artina:Button
+                Grid.Column="1"
+							Text="Anrufen" 
+							WidthRequest="100"
+							HorizontalOptions="Center"
+							Style="{ StaticResource PrimaryActionButtonStyle }"
+							Clicked="OnCallTaxi"/>
+
+        </Grid>
+    </ContentView.Content>
+
+</ContentView>

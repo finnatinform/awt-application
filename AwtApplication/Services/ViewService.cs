@@ -45,6 +45,10 @@ namespace AwtApplication.Services
                     break;
             }
         }
+        public async static void ShowTaxi()
+        {
+            await NavigationService.PushAsync(new GrialDemoSettings());
+        }
         public async static void ShowHomepage()
         {
             await NavigationService.PushAsync(new DashboardMultipleTilesPage());

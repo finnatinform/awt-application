@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:local="clr-namespace:AwtApplication;assembly=AwtApplication"
+	x:Class="AwtApplication.GrialDemoSettings"
+	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared"
+	BackgroundColor="{DynamicResource BasePageColor}"
+	Title="Taxiunternehmen">
+    <ContentPage.Content>
+        <ListView
+            x:Name="TaxiListView"
+			ItemsSource="{ Binding TaxiList }" 
+			SeparatorVisibility="None"
+			BackgroundColor="{ DynamicResource BasePageColor }"
+			HasUnevenRows="true"
+            ItemSelected="ItemSelected"
+            >
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <local:TaxiItemTemplate
+							Padding="{ StaticResource MainWrapperPadding }"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
