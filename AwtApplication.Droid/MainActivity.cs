@@ -60,6 +60,16 @@ namespace AwtApplication.Droid
             if (this.Intent.HasExtra("BY_EVENT"))
             {
                 bool HFromEvent = this.Intent.GetBooleanExtra("BY_EVENT", false);
+                if ( HFromEvent )
+                {
+                    // Dann haben wir einen Event Ident
+
+                } else
+                {
+                    // Dann haben wir ein Breakoutsession Start-Datum
+
+                }
+
                 // TODO SHOW BREAKOUT_SESSION or Event
             }
         }

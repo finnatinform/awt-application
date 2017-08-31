@@ -55,10 +55,15 @@ namespace AwtApplication.Droid.Services
 
         private void DataLoadTimerTick( object _Sender, EventArgs _Event )
         {
-            //CommunicationService.LoadNotifications();
-            AwtApplication.Services.CommunicationService.LoadNotifications( new OnLoadNotificationsSuccess(this.OnLoadSuccess) );
+            if (this.NotificationList.Count == 0)
+            {
+                // Sicherheitsabfrage
+                this.LastTimeLoaded = new DateTime(2015, 1, 1);
+            }
+            string HLastLoaded = this.LastTimeLoaded.ToString("dd.MM.yyyy HH:mm");
+            AwtApplication.Services.CommunicationService.LoadNotifications(HLastLoaded, new OnLoadNotificationsSuccess(this.OnLoadSuccess) );
 
-            // Now set to this
+            // TODO Was ist mit der Verzögerung? Müsste gehen, da async oder?
             this.LastTimeLoaded = DateTime.Now;
 
             FileService.SetStorageEntry(Constants.STORAGE_KEY_LAST_LOADED,this.LastTimeLoaded);
@@ -67,7 +72,6 @@ namespace AwtApplication.Droid.Services
 
         private void OnLoadSuccess(List<Models.Notification> _Answer)
         {
-            // TODO_ filtern auf last loaded
             this.NotificationList.AddRange(_Answer);
         }
 

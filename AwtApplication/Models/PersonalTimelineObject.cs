@@ -13,5 +13,11 @@ namespace AwtApplication.Models
             get;
             set;
         }
+
+        public string LAST_EDITED
+        {
+            get;
+            set;
+        }
     }
 }

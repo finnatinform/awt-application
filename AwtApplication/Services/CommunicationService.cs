@@ -88,7 +88,7 @@ namespace AwtApplication.Services
                 case EMessageTypes.MSG_LOAD_USER_EVENTS:
                     return false;
                 case EMessageTypes.MSG_LOAD_NOTIFICATIONS:
-                    return true;
+                    return false;
                 case EMessageTypes.MSG_SEND_FEEDBACK:
                     return false;
 
@@ -236,9 +236,10 @@ namespace AwtApplication.Services
             CallServer(EMessageTypes.MSG_SEND_FEEDBACK,HData,_OnSuccess);
         }
 
-        public static async Task LoadNotifications( OnLoadNotificationsSuccess _OnSuccess)
+        public static async Task LoadNotifications( string _LastLoaded, OnLoadNotificationsSuccess _OnSuccess)
         {
-            CallServer(EMessageTypes.MSG_LOAD_NOTIFICATIONS, "", _OnSuccess);
+            string HData = JsonConvert.SerializeObject(new PersonalTimelineObject { IDENT = FileService.GetStorageValue(Constants.STORAGE_KEY_USER).ToString(), LAST_EDITED = _LastLoaded });
+            CallServer(EMessageTypes.MSG_LOAD_NOTIFICATIONS, HData, _OnSuccess);
         }
 
         public static void CancelAllRequests()
