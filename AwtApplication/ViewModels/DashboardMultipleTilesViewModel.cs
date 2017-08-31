@@ -64,16 +64,6 @@ namespace AwtApplication
                     Icon = GrialShapesFont.PhoneIphone,
                     Badge = 0,
                     Callback = ViewService.ShowTaxi
-                },
-                new DashboardMultipleTileItem
-                {
-                    Title = "Develop",
-                    BackgroundColor = "#E4ECF0",
-                    IconColor = "#5A6E78",
-                    ShowBackgroundColor = true,
-                    Icon = GrialShapesFont.LogoGrial,
-                    Badge = 0,
-                    Callback = () => ViewService.ShowBreakoutSession("22.09.2017 15:30") // TODO korrekt übergeben
                 }
             };
 		}

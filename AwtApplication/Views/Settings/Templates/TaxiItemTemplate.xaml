@@ -7,12 +7,15 @@
 
     <ContentView.Content>
         <Grid
+            ColumnSpacing="0" 
+			RowSpacing="0" 
 			VerticalOptions="Center"
-            HeightRequest="60">
+            HeightRequest="74"
+            Padding="20,0,10,0">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
             <StackLayout
@@ -31,6 +34,8 @@
                 Grid.Column="1"
 							Text="Anrufen" 
 							WidthRequest="100"
+                HeightRequest="44"
+                VerticalOptions="Center"
 							HorizontalOptions="Center"
 							Style="{ StaticResource PrimaryActionButtonStyle }"
 							Clicked="OnCallTaxi"/>
