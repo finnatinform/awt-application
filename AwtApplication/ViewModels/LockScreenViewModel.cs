@@ -19,15 +19,33 @@ namespace AwtApplication.ViewModels
         public ResetView ResetViewCallback;
         public void TryToUnlock(string _UnlockCode )
         {
-            if (String.IsNullOrEmpty(_UnlockCode)||!_UnlockCode.Contains(Constants.UNLOCK_KEY_SEPARATOR+""))
+            bool HError = false;
+            string HKey = "";
+            HError = String.IsNullOrEmpty(_UnlockCode) || !_UnlockCode.Contains(Constants.UNLOCK_KEY_SEPARATOR + "");
+
+            if (!HError)
             {
-                NotificationService.ShowAlert(Messages.UNLOCK_KEY_ERROR_TITLE, Messages.UNLOCK_KEY_ERROR_TEXT , Messages.OK);
+                string[] HSplitted = _UnlockCode.Split(Constants.UNLOCK_KEY_SEPARATOR);
+                HError = HSplitted.Length != 2;
+                if (!HError)
+                {
+                    // Zweiter Teil ist awt-2017 bzw awt-2018 etc
+                    HError = !HSplitted[1].StartsWith("awt-");
+                    if (!HError)
+                    {
+                        HKey = HSplitted[0].ToUpper();
+                    }
+                }
+            }
+
+            if ( HError )
+            {
+                NotificationService.ShowAlert(Messages.UNLOCK_KEY_ERROR_TITLE, Messages.UNLOCK_KEY_ERROR_TEXT, Messages.OK);
                 this.ResetViewCallback?.Invoke();
             } else
             {
                 InCheckKey = true;
-                String HCustomer = _UnlockCode.Split(Constants.UNLOCK_KEY_SEPARATOR)[0].ToUpper();
-                Task.Factory.StartNew(async () => await CommunicationService.CheckUnlockKey(HCustomer , new OnHandleCheckCustomerKey(HandleUnlock)));
+                Task.Factory.StartNew(async () => await CommunicationService.CheckUnlockKey(HKey, new OnHandleCheckCustomerKey(HandleUnlock)));
             }
         }
 
