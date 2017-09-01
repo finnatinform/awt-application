@@ -6,5 +6,9 @@ namespace AwtApplication.iOS.Services
 {
     class ServiceStarterIOS : IServiceStarter
     {
+        public void StartBackgroundService()
+        {
+            // TODO
+        }
     }
 }
