@@ -1,15 +1,12 @@
 using AwtApplication.Models;
 using AwtApplication.Services;
-using AwtApplication.Views;
-using Java.Lang;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AwtApplication
 {
-	public class TimelineViewModel 
-    {
+    public class TimelineViewModel 
+    {   
 		public TimelineViewModel()
 		{
             ReferentList = new List<Referent>();

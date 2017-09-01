@@ -1,11 +1,6 @@
 ﻿using AwtApplication.Services;
-using AwtApplication.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static Android.App.Usage.UsageEvents;
 
 namespace AwtApplication.ViewModels
 {

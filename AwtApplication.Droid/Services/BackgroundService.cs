@@ -6,90 +6,93 @@ using AwtApplication.Params;
 using AwtApplication.Services;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace AwtApplication.Droid.Services
 {
     [Service]
-    public class BackgroundService : Service
+    class BackgroundService : Service
     {
-        private Timer DataLoadTimer;
-        private Timer ShouldNotificateTimer;
+        private const string Tag = "[BackgroundService]";
 
-        private DateTime LastTimeLoaded;
+        private bool _isRunning;
+        private Context _context;
+        private Task _task;
 
-        private List<Models.Notification> NotificationList;
+        #region overrides
 
-        // Is periodic service
         public override IBinder OnBind(Intent intent)
         {
             return null;
         }
 
-        public override StartCommandResult OnStartCommand(Android.Content.Intent intent, StartCommandFlags flags, int startId)
+        public override void OnCreate()
         {
-            this.DataLoadTimer = new Timer();
-            this.DataLoadTimer.Elapsed += new ElapsedEventHandler( DataLoadTimerTick );
-            this.DataLoadTimer.Interval = Constants.BackgroundLoadingInterval;
-            this.DataLoadTimer.Start();
+            _context = this;
+            _isRunning = false;
+            _task = new Task(DoWork);
+        }
 
-            // Init Last Loaded
-            if (FileService.DoesStorageEntryExist(Constants.STORAGE_KEY_LAST_LOADED))
-                this.LastTimeLoaded = DateTime.Parse(FileService.GetStorageValue(Constants.STORAGE_KEY_LAST_LOADED) as string);
-            else
-                this.LastTimeLoaded = new DateTime(2015, 1, 1);
+        public override void OnDestroy()
+        {
+            _isRunning = false;
 
-            if (FileService.DoesStorageEntryExist(Constants.STORAGE_KEY_NOTIFICATIONS))
-                this.NotificationList = FileService.GetStorageValue(Constants.STORAGE_KEY_NOTIFICATIONS) as List<Models.Notification>;
-            else
-                this.NotificationList = new List<Models.Notification>();
+            if (_task != null)
+            {
+                _task.Dispose();
+            }
+        }
 
-            this.ShouldNotificateTimer = new Timer();
-            this.ShouldNotificateTimer.Elapsed += new ElapsedEventHandler( ShouldNotificateTimerTick );
-            this.ShouldNotificateTimer.Interval = Constants.BackgroundNotificationInterval;
-            this.ShouldNotificateTimer.Start();
-
+        public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
+        {
+            if (!_isRunning)
+            {
+                _isRunning = true;
+                _task.Start();
+            }
             return StartCommandResult.Sticky;
         }
 
+        #endregion
 
-        private void DataLoadTimerTick( object _Sender, EventArgs _Event )
+        private void DoWork()
         {
-            if (this.NotificationList.Count == 0)
+            string HLastTimeLoaded;
+            if ( FileService.DoesStorageEntryExist(Constants.STORAGE_KEY_LAST_LOADED) )
             {
-                // Sicherheitsabfrage
-                this.LastTimeLoaded = new DateTime(2015, 1, 1);
+                HLastTimeLoaded = FileService.GetStorageValue(Constants.STORAGE_KEY_LAST_LOADED) as string;
+            } else
+            {
+                HLastTimeLoaded = new DateTime(2015, 1, 1).ToString("dd.MM.yyyy HH:mm");
             }
-            string HLastLoaded = this.LastTimeLoaded.ToString("dd.MM.yyyy HH:mm");
-            AwtApplication.Services.CommunicationService.LoadNotifications(HLastLoaded, new OnLoadNotificationsSuccess(this.OnLoadSuccess) );
 
-            // TODO Was ist mit der Verzögerung? Müsste gehen, da async oder?
-            this.LastTimeLoaded = DateTime.Now;
-
-            FileService.SetStorageEntry(Constants.STORAGE_KEY_LAST_LOADED,this.LastTimeLoaded);
-            FileService.SetStorageEntry(Constants.STORAGE_KEY_NOTIFICATIONS,this.NotificationList);
+            AwtApplication.Services.CommunicationService.LoadNotifications(HLastTimeLoaded, new OnLoadNotificationsSuccess(this.OnLoadSuccess));
+            FileService.SetStorageEntry(Constants.STORAGE_KEY_LAST_LOADED, HLastTimeLoaded);
         }
-
         private void OnLoadSuccess(List<Models.Notification> _Answer)
         {
-            this.NotificationList.AddRange(_Answer);
+            // Just for Breakpoint
+            int HTest = 5;
         }
 
-        private void ShouldNotificateTimerTick( object _Sender, EventArgs _Event )
-        {
-            TimeSpan HSpan;
-            foreach ( Models.Notification HNotification in this.NotificationList)
-            {
-                HSpan = DateTime.Parse(HNotification.START_DATE) - DateTime.Now;
-                if ( HSpan.Days == 0 && 
-                     HSpan.Hours == 0 &&
-                     HSpan.Minutes == 0)
-                {
-                    // TODO : if active then nur alert
-                    AwtApplication.Services.NotificationService.ShowNotification(HNotification);
-                    this.NotificationList.Remove(HNotification);
-                }
-            }
-        }
     }
+
+        //private void ShouldNotificateTimerTick( object _Sender, EventArgs _Event )
+        //{
+        //    TimeSpan HSpan;
+        //    foreach ( Models.Notification HNotification in this.NotificationList)
+        //    {
+        //        HSpan = DateTime.Parse(HNotification.START_DATE) - DateTime.Now;
+        //        if ( HSpan.Days == 0 && 
+        //             HSpan.Hours == 0 &&
+        //             HSpan.Minutes == 0)
+        //        {
+        //            // TODO : if active then nur alert
+        //            AwtApplication.Services.NotificationService.ShowNotification(HNotification);
+        //            this.NotificationList.Remove(HNotification);
+        //        }
+        //    }
+        //}
+    
 }
