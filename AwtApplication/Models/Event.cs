@@ -8,6 +8,10 @@ namespace AwtApplication.Models
 {
     public class Event
     {
+        public Event clone()
+        {
+            return this.MemberwiseClone() as Event;
+        }
         public int IDENT
         {
             get;
@@ -80,7 +84,7 @@ namespace AwtApplication.Models
         {
             get
             {
-                return DateTime.Parse(START_DATE);
+                return DateTime.ParseExact(START_DATE,"dd.MM.yyyy HH:mm", null);
             }
         }
         public string FORE_NAME
@@ -118,7 +122,7 @@ namespace AwtApplication.Models
         {
             get
             {
-                return DateTime.Parse(this.START_DATE) < DateTime.Now;
+                return DateTime.ParseExact(START_DATE, "dd.MM.yyyy HH:mm", null) < DateTime.Now;
             }
         }
 
@@ -157,7 +161,7 @@ namespace AwtApplication.Models
         {
             get
             {
-                return HAS_FEEDBACK && (DateTime.Parse(this.START_DATE).AddMinutes(this.DURATION) < DateTime.Now);
+                return HAS_FEEDBACK && (DateTime.ParseExact(START_DATE, "dd.MM.yyyy HH:mm", null).AddMinutes(this.DURATION) < DateTime.Now);
             }
         }
 
