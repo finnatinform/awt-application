@@ -38,7 +38,7 @@
 					VerticalOptions="End"
 					HorizontalOptions="Start">
                     <Image
-				Source="@drawable/icon" 
+				Source="icon.png" 
 				HorizontalOptions="Center"
 				Aspect="AspectFill"
 				WidthRequest="60" 

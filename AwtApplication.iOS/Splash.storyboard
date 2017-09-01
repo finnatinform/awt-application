@@ -15,7 +15,7 @@
                     <view key="view" contentMode="center" id="24">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" colorSpace="calibratedRGB" red="0.11372549019607843" green="0.14901960784313725" blue="0.19607843137254902" alpha="1"/>
+                        <color key="backgroundColor" colorSpace="calibratedRGB" red="90" green="110" blue="120" alpha="1"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="27" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" image="icon.png">
                                 <rect key="frame" width="60" height="60"/>
