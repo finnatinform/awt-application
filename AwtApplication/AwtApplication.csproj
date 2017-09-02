@@ -53,7 +53,6 @@
     <Compile Include="Services\CommunicationService.cs" />
     <Compile Include="Services\DialService.cs" />
     <Compile Include="Services\FileService.cs" />
-    <Compile Include="Services\IPushService.cs" />
     <Compile Include="Services\IServiceStarter.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\ViewService.cs" />

@@ -22,16 +22,16 @@ namespace AwtApplication
                 },
 
                 new DashboardMultipleTileItem
-				{
-					Title = Messages.PAGE_TITLE_MY_TIMELINE,
+                {
+                    Title = Messages.PAGE_TITLE_MY_TIMELINE,
                     BackgroundColor = "#E4ECF0",
                     IconColor = "#3C96D2",
                     ShowBackgroundColor = true,
-					BackgroundImage = "",
-					Icon = GrialShapesFont.FavoriteBorder,
-					Badge = 0, // TODO: bage implementieren
+                    BackgroundImage = "",
+                    Icon = GrialShapesFont.FavoriteBorder,
+                    Badge = 0, // TODO: bage implementieren
                     Callback = ViewService.ShowPersonalEventList
-				},
+                },
                 new DashboardMultipleTileItem
                 {
                     Title = Messages.PAGE_TITLE_REFERENTS,
@@ -64,6 +64,18 @@ namespace AwtApplication
                     Icon = GrialShapesFont.PhoneIphone,
                     Badge = 0,
                     Callback = ViewService.ShowTaxi
+                }
+                ,
+                new DashboardMultipleTileItem
+                {
+                    Title = "DEVELOP",
+                    BackgroundColor = "#E4ECF0",
+                    IconColor = "#5A6E78",
+                    ShowBackgroundColor = true,
+                    BackgroundImage = "",
+                    Icon = GrialShapesFont.PhoneIphone,
+                    Badge = 0,
+                    Callback = ()=>ViewService.ShowBreakoutSession("01.09.2017 13:00")
                 }
             };
 		}

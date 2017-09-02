@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace AwtApplication.Models
 {
+    public delegate void OnNotificationAccept();
+
     public class Notification
     {
         public string DESCRIPTION;
         public string CAPTION;
 
-        public Notification( string _Description, string _Caption )
+        public Notification(string _Description, string _Caption)
         {
             this.DESCRIPTION = _Description;
             this.CAPTION = _Caption;
@@ -22,5 +24,6 @@ namespace AwtApplication.Models
         public int EVENT_IDENT;
         public bool BY_EVENT;
         public int IDENT;
+        public OnNotificationAccept ON_SUCCESS;
     }
 }

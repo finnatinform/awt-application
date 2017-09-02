@@ -167,8 +167,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\CustomFontLabelRenderer.cs" />
     <Compile Include="Services\AlarmReceiver.cs" />
-    <Compile Include="Services\BackgroundService.cs" />
-    <Compile Include="Services\PushServiceAndroid.cs" />
+    <Compile Include="Services\LoadServiceAndroid.cs" />
+    <Compile Include="Services\BootBroadcast.cs" />
     <Compile Include="Services\ServiceStarterAndroid.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,8 +177,6 @@
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="packages.config" />
-    <None Include="Assets\fontawesome-webfont.ttf" />
-    <None Include="Assets\ionicons.ttf" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Andreas_Gladis.jpg" />

@@ -25,7 +25,7 @@
     <ContentPage.Content>
 
 		<ScrollView 
-			Padding="40,50,40,0">
+			Padding="40,50,40,40">
 			<Grid RowSpacing="60">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -38,20 +38,20 @@
 				<Image
 					Grid.Row="0"
 					Source="inform_logo.png"
-					WidthRequest="130"
+					WidthRequest="120"
 					HorizontalOptions="Center"
 					TranslationX="-10"/>
 
 				
 				<StackLayout 
-					Spacing="20"
+					Spacing="10"
 					Grid.Row="1">
                     <!--TITLE-->
                     <Label 
 						Style="{StaticResource AboutTitle}"
 						Text="Datenschutzbestimmungen"
 						FontAttributes="Bold"
-						HorizontalTextAlignment="Center"/>
+                        HorizontalTextAlignment="Center"/>
 
                     <!--TEXT-->
                     <Label 
@@ -66,7 +66,7 @@
 
                     </StackLayout>
                 <StackLayout 
-					Spacing="20"
+					Spacing="10"
 					Grid.Row="2">
                     <!--TITLE-->
                     <Label 
@@ -86,7 +86,7 @@
                 </StackLayout>
 
                 <StackLayout 
-					Spacing="20"
+					Spacing="10"
 					Grid.Row="3">
 
                     <!--TITLE-->

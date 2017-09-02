@@ -18,7 +18,7 @@ using UXDivers.Artina.Shared.Droid;
 using AwtApplication.Services;
 
 using FFImageLoading.Forms.Droid;
-
+using AwtApplication.Droid.Services;
 
 namespace AwtApplication.Droid
 {

@@ -23,8 +23,8 @@
 					WidthRequest="10"/>
 
 				<Label 
-					Text="{ Binding ICON }"
-					Style="{ StaticResource FontIcon }"
+					Text="{ Binding GRIAL_ICON }"
+                    Style="{ StaticResource FontIcon }"
 					TextColor="{ Binding BackgroundColor }" 
 					HorizontalOptions="Start"
 					VerticalTextAlignment="Center" 

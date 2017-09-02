@@ -11,9 +11,11 @@ using System.Net;
 
 namespace AwtApplication.Services
 {
+    
     public delegate void ShowView() ;
     class ViewService
     {
+        public static bool InBreakoutSession ;
         public static INavigation NavigationService;
         public static void ShowEventDetail( Event _Event, bool _IsModal = false )
         {
@@ -77,14 +79,10 @@ namespace AwtApplication.Services
 
         internal async static void ShowBreakoutSession( string _DateTime )
         {
-            //DateTime HTime = DateTime.Parse(_DateTime);
-            //await NavigationService.PushAsync(new CategoriesListWithIconsPage());
-            //SetPageTitle(Messages.BREAKOUT_FEEDBACK + HTime.ToString("HH:mm") );
-
-            Notification HTest = new Notification( "Klicken Sie hier", "Bitte geben Sie Feedback ab" );
-            HTest.IDENT = 1001;
-
-            DependencyService.Get<IPushService>().ShowPushNotification(HTest);
+            InBreakoutSession = true;
+            DateTime HTime = DateTime.ParseExact(_DateTime,"dd.MM.yyyy HH:mm",null);
+            await NavigationService.PushAsync(new CategoriesListWithIconsPage( _DateTime ));
+            SetPageTitle(Messages.BREAKOUT_FEEDBACK + HTime.ToString("HH:mm") );
         }
 
         public async static void ShowPersonalEventList()

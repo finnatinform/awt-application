@@ -30,6 +30,13 @@ namespace AwtApplication
             if ( _Answer == "success" )
             {
                 NotificationService.ShowAlert(Messages.THANK_YOU,Messages.FEEDBACK_THANKS,Messages.CLOSE);
+                FeedbackButton.IsVisible = false;
+                (BindingContext as Event).RATING = this.HiddenRating; // Jetzt kann es nicht mehr bewertet werden
+                if (ViewService.InBreakoutSession)
+                {
+                    // TODO Back to homescreen
+                    ViewService.InBreakoutSession = false;
+                }
             } else
             {
                 NotificationService.ShowAlert(Messages.ERROR, Messages.FEEDBACK_ERROR, Messages.CLOSE);

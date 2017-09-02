@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using AwtApplication.Services;
 
 namespace AwtApplication.Droid.Services
 {
@@ -17,8 +18,9 @@ namespace AwtApplication.Droid.Services
     {
         public override void OnReceive(Context context, Intent intent)
         {
-            var backgroundServiceIntent = new Intent(context, typeof(BackgroundService));
-            context.StartService(backgroundServiceIntent);
+            var HIntent = new Intent(context, typeof(LoadDataServiceAndroid));
+            
+            context.StartService(HIntent);
         }
     }
 }

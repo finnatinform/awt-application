@@ -27,5 +27,21 @@ namespace AwtApplication
                 FileService.GainUserData();
             }
 		}
-	}
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+            NotificationService.AppIsInForeground = true;
+        }
+        protected override void OnSleep()
+        {
+            base.OnStart();
+            NotificationService.AppIsInForeground = false;
+        }
+        protected override void OnResume()
+        {
+            base.OnStart();
+            NotificationService.AppIsInForeground = true;
+        }
+    }
 }

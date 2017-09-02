@@ -11,7 +11,7 @@ namespace AwtApplication
 
 			BindingContext = new DashboardMultipleTilesViewModel ();
 
-            DependencyService.Get<IServiceStarter>().StartBackgroundService();
+            DependencyService.Get<IServiceStarter>().StartServices();
         }
 	}
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AwtApplication.Models
 {
-    class PersonalTimelineObject
+    public class PersonalTimelineObject
     {
         public string IDENT
         {
@@ -15,6 +15,11 @@ namespace AwtApplication.Models
         }
 
         public string LAST_EDITED
+        {
+            get;
+            set;
+        }
+        public string START_DATE
         {
             get;
             set;

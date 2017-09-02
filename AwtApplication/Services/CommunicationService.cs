@@ -30,7 +30,8 @@ namespace AwtApplication.Services
         MSG_SEND_RESERVATION,
         MSG_SEND_USER_DATA,
         MSG_LOAD_NOTIFICATIONS,
-        MSG_SEND_FEEDBACK
+        MSG_SEND_FEEDBACK,
+        MSG_LOAD_BREAKOUT_SESSION
     }
     // This is totally fake until now
     public class CommunicationService
@@ -91,8 +92,11 @@ namespace AwtApplication.Services
                     return false;
                 case EMessageTypes.MSG_SEND_FEEDBACK:
                     return false;
+                case EMessageTypes.MSG_LOAD_BREAKOUT_SESSION:
+                    return false;
 
                 default:
+                    // WTF??
                     throw new NotImplementedException();
             }
         }
@@ -117,7 +121,10 @@ namespace AwtApplication.Services
                     return "notifications/list";
                 case EMessageTypes.MSG_SEND_FEEDBACK:
                     return "feedback/add";
+                case EMessageTypes.MSG_LOAD_BREAKOUT_SESSION:
+                    return "events/listbreakout";
                 default:
+                    // WTF??
                     throw new NotImplementedException();
             }
         }
@@ -130,6 +137,7 @@ namespace AwtApplication.Services
                 {
                     case EMessageTypes.MSG_SEND_USER_DATA:
                         FileService.SetStorageEntry(Constants.STORAGE_KEY_USER_NOT_SEND,FileService.GetUserData());
+                        
                         break;
                 }
                 
@@ -154,6 +162,16 @@ namespace AwtApplication.Services
                         HEvent.IsInbound = (HEvents.IndexOf(HEvent) % 2) == 0;
                     }
                     Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnLoadEventsSuccess)(HEvents));
+                    break;
+                case EMessageTypes.MSG_LOAD_BREAKOUT_SESSION:
+                    List<Event> HBreakoutEvents = new List<Event>();
+                    HBreakoutEvents = JsonConvert.DeserializeObject<List<Event>>(_Answer);
+                    foreach (Event HEvent in HBreakoutEvents)
+                    {
+                        // Referents setzen
+                        HEvent.GenerateReferent();
+                    }
+                    Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnLoadEventsSuccess)(HBreakoutEvents));
                     break;
                 case EMessageTypes.MSG_LOAD_USER_EVENTS:
                     List<Event> HPersonalEvents = new List<Event>();
@@ -208,6 +226,11 @@ namespace AwtApplication.Services
         {
             string HData = JsonConvert.SerializeObject(new PersonalTimelineObject { IDENT = FileService.GetStorageValue(Constants.STORAGE_KEY_USER).ToString() });
             CallServer(EMessageTypes.MSG_LOAD_ALL_EVENTS, HData, _OnSuccess);
+        }
+        public static async Task LoadBreakoutSession(string _DateTime, OnLoadEventsSuccess _OnSuccess)
+        {
+            string HData = JsonConvert.SerializeObject(new PersonalTimelineObject { START_DATE = _DateTime , IDENT = FileService.GetStorageValue(Constants.STORAGE_KEY_USER).ToString() });
+            CallServer(EMessageTypes.MSG_LOAD_BREAKOUT_SESSION, HData, _OnSuccess);
         }
         public static async Task LoadPersonalTimeline(OnLoadEventsSuccess _OnSuccess)
         {

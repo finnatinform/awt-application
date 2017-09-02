@@ -19,11 +19,12 @@ namespace AwtApplication
             }
         }
 
-        public CategoriesListWithIconsPage ()
+        public CategoriesListWithIconsPage ( string _DateTime )
 		{
 			InitializeComponent ();
 
-			BindingContext = new CategoriesViewModel();
+			BindingContext = new CategoriesViewModel( _DateTime );
+            NavigationPage.SetHasBackButton(this, false);
         }
 
 		private async void OnItemTapped(Object sender, ItemTappedEventArgs e)
