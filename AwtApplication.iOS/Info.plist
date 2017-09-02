@@ -70,8 +70,6 @@
 		<key>grialkit.com</key>
 		<dict/>
 	</dict>
-	<key>CFBundleName</key>
-	<string>AwtApplication</string>
 	<key>UILaunchImages</key>
 	<array>
 		<dict>
