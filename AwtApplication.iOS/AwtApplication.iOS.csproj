@@ -387,7 +387,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\PushServiceIOS.cs" />
+    <Compile Include="Services\BackgroundServiceIOS.cs" />
     <Compile Include="Services\ServiceStarterIOS.cs" />
     <Compile Include="ThemeColors.cs" />
   </ItemGroup>
