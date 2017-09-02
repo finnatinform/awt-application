@@ -1,7 +1,6 @@
 using FFImageLoading.Forms.Touch;
 using Foundation;
 using Lottie.Forms.iOS.Renderers;
-using ObjCRuntime;
 using System;
 using UIKit;
 using UXDivers.Artina.Shared;
@@ -31,7 +30,7 @@ namespace AwtApplication.iOS
 
             LoadApplication (new App ());
 
-            UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(Params.Constants.CheckNotificationsInterval);
+            
 
 			return base.FinishedLaunching (app, options);
 		}

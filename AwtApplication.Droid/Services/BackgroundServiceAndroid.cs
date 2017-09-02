@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 namespace AwtApplication.Droid.Services
 {
     [Service]
-    class LoadDataServiceAndroid : Service
+    class BackgroundServiceAndroid : Service
     {
-        private const string Tag = "[LoadDataServiceAndroid]";
+        private const string Tag = "[BackgroundServiceAndroid]";
 
         private bool _isRunning;
         private Context _context;

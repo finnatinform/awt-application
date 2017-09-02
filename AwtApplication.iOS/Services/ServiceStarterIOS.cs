@@ -1,14 +1,15 @@
 ﻿using AwtApplication.iOS.Services;
 using AwtApplication.Services;
+using UIKit;
 
 [assembly: Xamarin.Forms.Dependency(typeof(ServiceStarterIOS))]
 namespace AwtApplication.iOS.Services
 {
     class ServiceStarterIOS : IServiceStarter
     {
-        public void StartBackgroundService()
+        public void StartServices()
         {
-            // TODO
+            UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(Params.Constants.CheckNotificationsInterval);
         }
     }
 }
