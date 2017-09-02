@@ -25,5 +25,7 @@ namespace AwtApplication.Params
         public static string STORAGE_KEY_NOTIFICATIONS = "STORAGE_KEY_NOTIFICATIONS";
         public static string STORAGE_KEY_USER_NOT_SEND = "STORAGE_KEY_USER_NOT_SEND";
         public static string LastLoadedInitial = "01.01.2015 01:00";
+
+        public static string TIME_FORMAT = "dd.MM.yyyy HH:mm";
     }
 }

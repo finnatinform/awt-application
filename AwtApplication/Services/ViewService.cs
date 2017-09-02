@@ -80,7 +80,7 @@ namespace AwtApplication.Services
         internal async static void ShowBreakoutSession( string _DateTime )
         {
             InBreakoutSession = true;
-            DateTime HTime = DateTime.ParseExact(_DateTime,"dd.MM.yyyy HH:mm",null);
+            DateTime HTime = DateTime.ParseExact(_DateTime, Constants.TIME_FORMAT, null);
             await NavigationService.PushAsync(new CategoriesListWithIconsPage( _DateTime ));
             SetPageTitle(Messages.BREAKOUT_FEEDBACK + HTime.ToString("HH:mm") );
         }

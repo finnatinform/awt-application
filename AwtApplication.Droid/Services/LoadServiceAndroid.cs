@@ -113,25 +113,34 @@ namespace AwtApplication.Droid.Services
         {
             List<Models.Notification> HNotifications = new List<Models.Notification>();
             HNotifications = JsonConvert.DeserializeObject<List<Models.Notification>>(_Answer);
+            CheckDuplicates(HNotifications);
             // TEMP
-            AwtApplication.Services.NotificationService._Notifications.Clear();
             AwtApplication.Services.NotificationService._Notifications.AddRange(HNotifications);
+        }
+        private void CheckDuplicates( List<Models.Notification> _NewItems )
+        {
+            foreach ( Models.Notification HNotification in _NewItems )
+            {
+                // Delete Duplicates
+                AwtApplication.Services.NotificationService._Notifications.RemoveAll( n => n.IDENT.Equals(HNotification.IDENT) );
+            }
         }
 
         private string GetLastLoaded()
         {
-            DateTime HLast = DateTime.ParseExact(Constants.LastLoadedInitial, "dd.MM.yyyy HH:mm", null);
+            DateTime HLast = DateTime.ParseExact(Constants.LastLoadedInitial, Constants.TIME_FORMAT, null);
             DateTime HTemp;
             foreach ( Models.Notification HNotification in AwtApplication.Services.NotificationService._Notifications)
             {
-                HTemp = DateTime.ParseExact(HNotification.START_DATE, "dd.MM.yyyy HH:mm", null);
+                HTemp = DateTime.ParseExact(HNotification.START_DATE, Constants.TIME_FORMAT, null);
                 if ( HTemp > HLast )
                 {
                     HLast = HTemp;
                 }
             }
-            return HLast.ToString("dd.MM.yyyy HH:mm");
+            return HLast.ToString(Constants.TIME_FORMAT);
         }
+
         private async void DoWork()
         {
             try
@@ -158,14 +167,15 @@ namespace AwtApplication.Droid.Services
             TimeSpan HSpan;
             foreach (Models.Notification HNotification in AwtApplication.Services.NotificationService._Notifications)
             {
-                HSpan = DateTime.ParseExact(HNotification.START_DATE, "dd.MM.yyyy HH:mm", null) - DateTime.Now;
-                if (HSpan.Days <= 0 &&
-                     HSpan.Hours <= 0 &&
-                     HSpan.Minutes <= 0)
+                HSpan = DateTime.ParseExact(HNotification.START_DATE, Constants.TIME_FORMAT, null) - DateTime.Now;
+                if (HSpan.Days == 0 &&
+                     HSpan.Hours == 0 &&
+                     HSpan.Minutes == 0)
                 {
                     ShowNotification(HNotification);
+                    // Not important,
+                    AwtApplication.Services.NotificationService._Notifications.Remove(HNotification);
                 }
-                // TODO das geht nicht mit notifications aus der vergangenheit
             }
         }
 

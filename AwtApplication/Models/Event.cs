@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AwtApplication.Params;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -84,7 +85,7 @@ namespace AwtApplication.Models
         {
             get
             {
-                return DateTime.ParseExact(START_DATE,"dd.MM.yyyy HH:mm", null);
+                return DateTime.ParseExact(START_DATE,Constants.TIME_FORMAT, null);
             }
         }
         public string FORE_NAME
@@ -122,7 +123,7 @@ namespace AwtApplication.Models
         {
             get
             {
-                return DateTime.ParseExact(START_DATE, "dd.MM.yyyy HH:mm", null) < DateTime.Now;
+                return DateTime.ParseExact(START_DATE, Constants.TIME_FORMAT, null) < DateTime.Now;
             }
         }
 
@@ -161,7 +162,7 @@ namespace AwtApplication.Models
         {
             get
             {
-                return HAS_FEEDBACK && (DateTime.ParseExact(START_DATE, "dd.MM.yyyy HH:mm", null).AddMinutes(this.DURATION) < DateTime.Now);
+                return HAS_FEEDBACK && (DateTime.ParseExact(START_DATE, Constants.TIME_FORMAT, null).AddMinutes(this.DURATION) < DateTime.Now);
             }
         }
 
