@@ -62,6 +62,7 @@ namespace AwtApplication.Droid
                 bool HFromEvent = this.Intent.GetBooleanExtra("BY_EVENT", false);
                 if ( HFromEvent )
                 {
+                    // TODO Alleinstehendes Event laden
                     // Dann haben wir einen Event Ident
 
                 } else

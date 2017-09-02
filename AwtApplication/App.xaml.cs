@@ -1,15 +1,11 @@
 using AwtApplication.Params;
 using AwtApplication.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AwtApplication
 {
-	//[XamlCompilation (XamlCompilationOptions.Skip)]
-	public partial class App : Application
+    //[XamlCompilation (XamlCompilationOptions.Skip)]
+    public partial class App : Application
 	{
 		public static MasterDetailPage MasterDetailPage;
 

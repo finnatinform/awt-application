@@ -132,7 +132,7 @@ namespace AwtApplication.Droid.Services
             DateTime HTemp;
             foreach ( Models.Notification HNotification in AwtApplication.Services.NotificationService._Notifications)
             {
-                HTemp = DateTime.ParseExact(HNotification.START_DATE, Constants.TIME_FORMAT, null);
+                HTemp = DateTime.ParseExact(HNotification.LAST_EDITED, Constants.TIME_FORMAT, null);
                 if ( HTemp > HLast )
                 {
                     HLast = HTemp;
@@ -170,7 +170,8 @@ namespace AwtApplication.Droid.Services
                 HSpan = DateTime.ParseExact(HNotification.START_DATE, Constants.TIME_FORMAT, null) - DateTime.Now;
                 if (HSpan.Days == 0 &&
                      HSpan.Hours == 0 &&
-                     HSpan.Minutes == 0)
+                     HSpan.Minutes == 0 &&
+                     HSpan.Seconds <= 0)
                 {
                     ShowNotification(HNotification);
                     // Not important,
@@ -183,6 +184,13 @@ namespace AwtApplication.Droid.Services
         {
             Intent HClickIntent = new Intent(_context, (typeof(MainActivity)));
             HClickIntent.PutExtra("BY_EVENT", _Notification.BY_EVENT);
+            if (_Notification.BY_EVENT)
+            {
+                HClickIntent.PutExtra("EVENT_IDENT",_Notification.EVENT_IDENT);
+            } else
+            {
+                HClickIntent.PutExtra("EVENT_IDENT", _Notification.EVENT_IDENT);
+            }
 
             // Wir werden nicht mehr als 10000 notifications haben
             int HPendingIntentIdPre = _Notification.IDENT + 10000;
