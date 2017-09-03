@@ -34,7 +34,8 @@ namespace AwtApplication
                 (BindingContext as Event).RATING = this.HiddenRating; // Jetzt kann es nicht mehr bewertet werden
                 if (ViewService.InBreakoutSession)
                 {
-                    // TODO Back to homescreen
+                    await Navigation.PopToRootAsync();
+                    //ViewService.ShowHomepage();
                     ViewService.InBreakoutSession = false;
                 }
             } else

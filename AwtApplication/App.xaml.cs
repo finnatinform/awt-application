@@ -27,17 +27,17 @@ namespace AwtApplication
         protected override void OnStart()
         {
             base.OnStart();
-            NotificationService.AppIsInForeground = true;
+            // Notification Load?
         }
         protected override void OnSleep()
         {
             base.OnStart();
-            NotificationService.AppIsInForeground = false;
+            // Notification Load?
         }
         protected override void OnResume()
         {
             base.OnStart();
-            NotificationService.AppIsInForeground = true;
+            // Notification Load?
         }
     }
 }

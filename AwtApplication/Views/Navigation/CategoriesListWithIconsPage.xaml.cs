@@ -32,6 +32,7 @@ namespace AwtApplication
             Event HSelectedEvent = (sender as ListView).SelectedItem as Event;
             if (HSelectedEvent.HAS_FEEDBACK || HSelectedEvent.CAN_BE_RESERVED)
             {
+                ViewService.BreakoutPage = this;
                 ViewService.ShowEventDetail(HSelectedEvent,true);
             }
 		}

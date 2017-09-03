@@ -29,7 +29,7 @@ namespace AwtApplication
                     ShowBackgroundColor = true,
                     BackgroundImage = "",
                     Icon = GrialShapesFont.FavoriteBorder,
-                    Badge = 0, // TODO: bage implementieren
+                    Badge = 0,
                     Callback = ViewService.ShowPersonalEventList
                 },
                 new DashboardMultipleTileItem
@@ -75,7 +75,7 @@ namespace AwtApplication
                     BackgroundImage = "",
                     Icon = GrialShapesFont.PhoneIphone,
                     Badge = 0,
-                    Callback = ()=>ViewService.ShowBreakoutSession("01.09.2017 13:00")
+                    Callback = ()=>ViewService.ShowBreakoutSession("03.09.2017 13:00")
                 }
             };
 		}

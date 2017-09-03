@@ -55,10 +55,6 @@ namespace AwtApplication.Services
         {
             await NavigationService.PushAsync(new DashboardMultipleTilesPage());
         }
-        public async static void ShowWelcomePage()
-        {
-
-        }
 
         public static Page GetFirstPage()
         {
@@ -123,6 +119,7 @@ namespace AwtApplication.Services
         }
 
         public static ILoadingPage FuturePage;
+        public static Page BreakoutPage;
 
         public async static void HandleLoadingError()
         {

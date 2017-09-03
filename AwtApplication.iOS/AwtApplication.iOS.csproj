@@ -378,10 +378,7 @@
     </None>
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
-    <None Include="Resources\fontawesome-webfont.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\ionicons.ttf" />
+    <BundleResource Include="Resources\grialshapes.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

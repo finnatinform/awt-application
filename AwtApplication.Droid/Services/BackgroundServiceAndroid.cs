@@ -21,6 +21,7 @@ namespace AwtApplication.Droid.Services
         private bool _isRunning;
         private Context _context;
         private Task _task;
+        private static Count ;
 
         #region overrides
 
@@ -84,6 +85,7 @@ namespace AwtApplication.Droid.Services
         {
             try
             {
+                
                 string HData = JsonConvert.SerializeObject(new Models.PersonalTimelineObject { IDENT = CrossDeviceInfo.Current.Id, LAST_EDITED = _LastLoaded });
                 HttpClient HClient = new HttpClient();
                 HClient.BaseAddress = new Uri("http://" + Constants.SERVER_URL + '/');
@@ -141,10 +143,28 @@ namespace AwtApplication.Droid.Services
             return HLast.ToString(Constants.TIME_FORMAT);
         }
 
+        private bool ShouldLoadData
+        {
+            get
+            {
+                return Count == 1;
+            }
+        }
+
+        private void UpdateCount()
+        {
+            Count++;
+            if ( UpdateCount > 5 )
+            {
+                UpdateCount = 1;
+            }
+        }
+
         private async void DoWork()
         {
             try
             {
+                UpdateCount();
                 // First get last loaded
                 string HLastLoaded = GetLastLoaded();
                 // synchronized

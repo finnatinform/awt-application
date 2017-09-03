@@ -9,9 +9,12 @@ namespace AwtApplication
 		{			
 			InitializeComponent();
 
-			BindingContext = new DashboardMultipleTilesViewModel ();
-
             DependencyService.Get<IServiceStarter>().StartServices();
+        }
+
+        protected override void OnAppearing()
+        {
+            BindingContext = new DashboardMultipleTilesViewModel();
         }
 	}
 }

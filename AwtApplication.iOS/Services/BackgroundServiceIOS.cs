@@ -14,7 +14,7 @@ namespace AwtApplication.iOS.Services
 {
     class BackgroundServiceIOS
     {
-        public async void DoWork()
+        public static async void DoWork(Action<UIBackgroundFetchResult> _CompletionHandler)
         {
             try
             {
@@ -24,14 +24,16 @@ namespace AwtApplication.iOS.Services
                 await LoadData(HLastLoaded);
 
                 CheckNotifications();
+                _CompletionHandler(UIBackgroundFetchResult.NewData);
             }
             catch (Exception e)
             {
                 // Clear Loaded Notifications
                 AwtApplication.Services.NotificationService._Notifications.Clear();
+                _CompletionHandler(UIBackgroundFetchResult.Failed);
             }
         }
-        private async Task LoadData(string _LastLoaded)
+        private static async Task LoadData(string _LastLoaded)
         {
             try
             {
@@ -60,7 +62,7 @@ namespace AwtApplication.iOS.Services
             }
         }
 
-        private void HandleAnswer(string _Answer)
+        private static void HandleAnswer(string _Answer)
         {
             List<Models.Notification> HNotifications = new List<Models.Notification>();
             HNotifications = JsonConvert.DeserializeObject<List<Models.Notification>>(_Answer);
@@ -68,7 +70,7 @@ namespace AwtApplication.iOS.Services
             // TEMP
             AwtApplication.Services.NotificationService._Notifications.AddRange(HNotifications);
         }
-        private void CheckDuplicates(List<Models.Notification> _NewItems)
+        private static void CheckDuplicates(List<Models.Notification> _NewItems)
         {
             foreach (Models.Notification HNotification in _NewItems)
             {
@@ -77,7 +79,7 @@ namespace AwtApplication.iOS.Services
             }
         }
 
-        private string GetLastLoaded()
+        private static string GetLastLoaded()
         {
             DateTime HLast = DateTime.ParseExact(Params.Constants.LastLoadedInitial, Params.Constants.TIME_FORMAT, null);
             DateTime HTemp;
@@ -92,7 +94,7 @@ namespace AwtApplication.iOS.Services
             return HLast.ToString(Params.Constants.TIME_FORMAT);
         }
 
-        private void CheckNotifications()
+        private static void CheckNotifications()
         {
             TimeSpan HSpan;
             foreach (Models.Notification HNotification in AwtApplication.Services.NotificationService._Notifications)
@@ -110,9 +112,17 @@ namespace AwtApplication.iOS.Services
             }
         }
 
-        private void ShowNotification(Models.Notification _Notification)
+        public static void ShowNotification(Models.Notification _Notification)
         {
-           // TODO
+            var HUINotification = new UILocalNotification();
+            NSDateFormatter HFormatter = new NSDateFormatter();
+            HFormatter.DateFormat = Params.Constants.TIME_FORMAT;
+            HUINotification.FireDate = HFormatter.Parse(_Notification.START_DATE);
+            HUINotification.AlertTitle = _Notification.CAPTION;
+            HUINotification.AlertBody = _Notification.DESCRIPTION;
+            HUINotification.AlertAction = "ViewAlert";
+
+            UIApplication.SharedApplication.ScheduleLocalNotification(HUINotification);
         }
     }
 }

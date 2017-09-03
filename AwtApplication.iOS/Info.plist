@@ -40,7 +40,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>grialshapes.ttf</string>
-    <string>fontawesome-webfont.ttf</string>
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string>FELIOS Anwendertreffen</string>
