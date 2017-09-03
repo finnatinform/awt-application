@@ -8,6 +8,11 @@ namespace AwtApplication.Models
 {
     public class Referent
     {
+        public int IDENT
+        {
+            get;
+            set;
+        }
         public string DESCRIPTION
         {
             get;
