@@ -154,9 +154,9 @@ namespace AwtApplication.Droid.Services
         private void UpdateCount()
         {
             Count++;
-            if ( UpdateCount > 5 )
+            if (Count > 5 )
             {
-                UpdateCount = 1;
+                Count = 1;
             }
         }
 
