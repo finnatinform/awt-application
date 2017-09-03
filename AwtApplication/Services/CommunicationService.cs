@@ -65,7 +65,9 @@ namespace AwtApplication.Services
                 string HContent = await HResponse.Content.ReadAsStringAsync();
                 HandleServerResponse(HContent, _MsgType, _OnSuccess);
             }
-            catch ( Exception _Exception )
+#pragma warning disable CS0168 // Variable is declared but never used
+            catch ( Exception _Exception)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 HandleServerResponse("error", _MsgType, _OnSuccess);
                 //HandleException(Messages.EXCEPTION_TIMEOUT);

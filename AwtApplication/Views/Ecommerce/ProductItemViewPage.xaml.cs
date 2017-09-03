@@ -32,6 +32,7 @@ namespace AwtApplication
                 NotificationService.ShowAlert(Messages.THANK_YOU,Messages.FEEDBACK_THANKS,Messages.CLOSE);
                 FeedbackButton.IsVisible = false;
                 (BindingContext as Event).RATING = this.HiddenRating; // Jetzt kann es nicht mehr bewertet werden
+                DependencyService.Get<IServiceStarter>().TriggerBackgroundRunManually();
                 if (ViewService.InBreakoutSession)
                 {
                     await Navigation.PopToRootAsync();

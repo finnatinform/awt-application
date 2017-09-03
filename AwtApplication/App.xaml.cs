@@ -27,17 +27,17 @@ namespace AwtApplication
         protected override void OnStart()
         {
             base.OnStart();
-            // Notification Load?
+            DependencyService.Get<IServiceStarter>().TriggerBackgroundRunManually();
         }
         protected override void OnSleep()
         {
             base.OnStart();
-            // Notification Load?
+            DependencyService.Get<IServiceStarter>().TriggerBackgroundRunManually();
         }
         protected override void OnResume()
         {
             base.OnStart();
-            // Notification Load?
+            DependencyService.Get<IServiceStarter>().TriggerBackgroundRunManually();
         }
     }
 }

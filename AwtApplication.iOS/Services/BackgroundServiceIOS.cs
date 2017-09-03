@@ -23,14 +23,13 @@ namespace AwtApplication.iOS.Services
                 // synchronized
                 await LoadData(HLastLoaded);
 
-                CheckNotifications();
-                _CompletionHandler(UIBackgroundFetchResult.NewData);
+                _CompletionHandler?.Invoke(UIBackgroundFetchResult.NewData);
             }
             catch (Exception e)
             {
                 // Clear Loaded Notifications
                 AwtApplication.Services.NotificationService._Notifications.Clear();
-                _CompletionHandler(UIBackgroundFetchResult.Failed);
+                _CompletionHandler?.Invoke(UIBackgroundFetchResult.Failed);
             }
         }
         private static async Task LoadData(string _LastLoaded)
@@ -67,15 +66,17 @@ namespace AwtApplication.iOS.Services
             List<Models.Notification> HNotifications = new List<Models.Notification>();
             HNotifications = JsonConvert.DeserializeObject<List<Models.Notification>>(_Answer);
             CheckDuplicates(HNotifications);
-            // TEMP
-            AwtApplication.Services.NotificationService._Notifications.AddRange(HNotifications);
+            CheckNotifications(HNotifications);
         }
         private static void CheckDuplicates(List<Models.Notification> _NewItems)
         {
             foreach (Models.Notification HNotification in _NewItems)
             {
-                // Delete Duplicates
-                AwtApplication.Services.NotificationService._Notifications.RemoveAll(n => n.IDENT.Equals(HNotification.IDENT));
+                List<UILocalNotification> HToKill = UIApplication.SharedApplication.ScheduledLocalNotifications.ToList().FindAll(n => (n.UserInfo.ValueForKey(new NSString("IDENT")) as NSNumber).Int32Value==HNotification.IDENT);
+                foreach ( UILocalNotification HNote in HToKill )
+                {
+                    UIApplication.SharedApplication.CancelLocalNotification(HNote);
+                }
             }
         }
 
@@ -94,21 +95,12 @@ namespace AwtApplication.iOS.Services
             return HLast.ToString(Params.Constants.TIME_FORMAT);
         }
 
-        private static void CheckNotifications()
+        private static void CheckNotifications( List<Models.Notification> _Notifications )
         {
-            TimeSpan HSpan;
-            foreach (Models.Notification HNotification in AwtApplication.Services.NotificationService._Notifications)
+            AwtApplication.Services.NotificationService._Notifications.AddRange(_Notifications);
+            foreach (Models.Notification HNotification in _Notifications)
             {
-                HSpan = DateTime.ParseExact(HNotification.START_DATE, Params.Constants.TIME_FORMAT, null) - DateTime.Now;
-                if (HSpan.Days == 0 &&
-                     HSpan.Hours == 0 &&
-                     HSpan.Minutes == 0 &&
-                     HSpan.Seconds <= 0)
-                {
                     ShowNotification(HNotification);
-                    // Not important,
-                    AwtApplication.Services.NotificationService._Notifications.Remove(HNotification);
-                }
             }
         }
 
@@ -121,7 +113,7 @@ namespace AwtApplication.iOS.Services
             HUINotification.AlertTitle = _Notification.CAPTION;
             HUINotification.AlertBody = _Notification.DESCRIPTION;
             HUINotification.AlertAction = "ViewAlert";
-
+            HUINotification.UserInfo.SetValueForKey(new NSNumber(_Notification.IDENT),new NSString("IDENT"));
             UIApplication.SharedApplication.ScheduleLocalNotification(HUINotification);
         }
     }

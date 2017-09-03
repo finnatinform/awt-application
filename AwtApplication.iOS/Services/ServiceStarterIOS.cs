@@ -11,5 +11,9 @@ namespace AwtApplication.iOS.Services
         {
             UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(Params.Constants.CheckNotificationsInterval);
         }
+        public void TriggerBackgroundRunManually()
+        {
+            BackgroundServiceIOS.DoWork( null);
+        }
     }
 }

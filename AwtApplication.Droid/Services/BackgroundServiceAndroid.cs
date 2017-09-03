@@ -21,7 +21,7 @@ namespace AwtApplication.Droid.Services
         private bool _isRunning;
         private Context _context;
         private Task _task;
-        private static Count ;
+        private static int Count ;
 
         #region overrides
 

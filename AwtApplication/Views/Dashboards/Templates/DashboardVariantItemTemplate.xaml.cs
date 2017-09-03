@@ -16,9 +16,7 @@ namespace AwtApplication
         public async void OnTileTapped(object sender, EventArgs args)
         {
             base.OnWidgetTapped(sender,args);
-            //await Application.Current.MainPage.DisplayAlert("Tile Tapped!", "You have tapped a \r\n DashboardItemTemplateBase", "OK");
         }
-
     }
 
 }
