@@ -149,6 +149,7 @@ namespace AwtApplication.Services
                 case EMessageTypes.MSG_LOAD_REFERENTS:
                     List<Referent> HReferents = new List<Referent>();
                     HReferents = JsonConvert.DeserializeObject<List<Referent>>(_Answer);
+                    HReferents.RemoveAll( r => r.IDENT == 1 );
                     Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnLoadReferentsSuccess)(HReferents));
                     break;
                 case EMessageTypes.MSG_LOAD_ALL_EVENTS:
