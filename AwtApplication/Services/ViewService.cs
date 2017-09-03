@@ -1,17 +1,13 @@
-﻿using AwtApplication.Params;
-using AwtApplication.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿using AwtApplication.Models;
+using AwtApplication.Params;
 using AwtApplication.Views;
+using System;
 using System.Net;
+using Xamarin.Forms;
 
 namespace AwtApplication.Services
 {
-    
+
     public delegate void ShowView() ;
     class ViewService
     {
@@ -20,8 +16,8 @@ namespace AwtApplication.Services
         public static void ShowEventDetail( Event _Event, bool _IsModal = false )
         {
             NavigationService.PushAsync(new ProductItemViewPage(_Event, _IsModal));
-            
             SetPageTitle(_Event.CAPTION);
+            CommunicationService.CancelAllRequests();
         }
         public async static void ShowReferentList()
         {
@@ -31,6 +27,7 @@ namespace AwtApplication.Services
         public async static void ShowEventList()
         {
             await NavigationService.PushAsync(new DocumentTimelinePage());
+            SetPageTitle(Messages.PAGE_TITLE_TIMELINE_LONG);
         }
         public async static void ShowMap()
         {
@@ -84,7 +81,7 @@ namespace AwtApplication.Services
         public async static void ShowPersonalEventList()
         {
             await NavigationService.PushAsync(new DocumentTimelinePage(true));
-            SetPageTitle(Messages.PAGE_TITLE_MY_TIMELINE);
+            SetPageTitle(Messages.PAGE_TITLE_MY_TIMELINE_LONG);
         }
 
         private static bool AppIsUnlocked()

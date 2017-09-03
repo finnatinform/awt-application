@@ -43,11 +43,6 @@ namespace AwtApplication
         {
             ReferentListView.ItemsSource = Controller.ReferentList;
         }
-        protected override bool OnBackButtonPressed()
-        {
-            CommunicationService.CancelAllRequests();
-            return base.OnBackButtonPressed();
-        }
     }
 }
 

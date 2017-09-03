@@ -53,12 +53,6 @@ namespace AwtApplication
         {
             EventListView.ItemsSource = Controller.DocumentTimelineList;
         }
-
-        protected override bool OnBackButtonPressed()
-        {
-            CommunicationService.CancelAllRequests();
-            return base.OnBackButtonPressed();
-        }
     }
 }
 

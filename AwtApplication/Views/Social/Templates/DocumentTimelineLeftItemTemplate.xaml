@@ -45,7 +45,7 @@
 				HorizontalTextAlignment="Start"
 				FontSize="12"
                 IsVisible="{Binding HAS_REFERENT}"
-				Text="{ Binding REFERENT_NAME, StringFormat='By {0:F0}'} }" />
+				Text="{ Binding REFERENT_NAME }" />
 
 			<!-- DATE -->
 			<Label
@@ -54,7 +54,7 @@
 				HorizontalTextAlignment="Start"
 				TextColor="{ DynamicResource BaseTextColor }"
 				FontSize="12"
-				Text="{ Binding START_DATE }"/>
+				Text="{ Binding START_DATE, StringFormat='{0:F0} Uhr'}"/>
 		</Grid>
 
 		<!-- BALLOON -->

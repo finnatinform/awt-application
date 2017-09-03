@@ -18,5 +18,11 @@ namespace AwtApplication.Models
             get;
             set;
         }
+
+        public string ADDRESS
+        {
+            get;
+            set;
+        }
     }
 }

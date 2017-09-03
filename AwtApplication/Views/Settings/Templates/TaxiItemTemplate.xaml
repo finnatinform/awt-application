@@ -10,7 +10,7 @@
             ColumnSpacing="0" 
 			RowSpacing="0" 
 			VerticalOptions="Center"
-            HeightRequest="74"
+            HeightRequest="94"
             Padding="20,0,10,0">
 
             <Grid.ColumnDefinitions>
@@ -24,11 +24,15 @@
                 <Label 
 							Text="{ Binding CAPTION }"
 							FontAttributes="Bold"
-							HorizontalTextAlignment="Center"/>
+							HorizontalTextAlignment="Start"/>
+                <Label 
+							Text="{ Binding ADDRESS }"
+							FontSize="14"
+							HorizontalTextAlignment="Start"/>
                 <Label 
 							Text="{ Binding NUMBER }"
 							FontSize="14"
-							HorizontalTextAlignment="Center"/>
+							HorizontalTextAlignment="Start"/>
             </StackLayout>
             <artina:Button
                 Grid.Column="1"

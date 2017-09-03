@@ -107,7 +107,7 @@
             <Label
                 x:Name="LabelReserved"
 				Grid.Row="4"
-				Text="Veranstaltung bereits vorgemerkt"
+				Text="Veranstaltung wurde bereits vorgemerkt"
                 IsVisible="{Binding USER_HAS_RESERVED}"
 				FontSize="{ artina:OnOrientationDouble
 					PortraitPhone=10,
@@ -132,9 +132,6 @@
 							LandscapePhone=15,
 							PortraitTablet=18,
 							LandscapeTablet=18 }"/>
-                    <BoxView 
-						Style="{StaticResource BrandNameOrnamentStyle}"
-						BackgroundColor="{ DynamicResource AccentColor }"/>
                 </StackLayout>
             </ScrollView>
         </Grid>
@@ -143,6 +140,7 @@
 		ColumnSpacing="0"
 		HorizontalOptions="Fill"
         HeightRequest="40"
+        Padding="20,0,0,0"
         IsVisible="{Binding GIVE_RATE_OPTION}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40" />
@@ -220,7 +218,7 @@
 			Margin="20,10,20,20"
 			Style="{StaticResource PrimaryActionButtonStyle}" 
             IsVisible="{Binding GIVE_RESERVE_OPTION}"
-			Text="Platz reservieren"
+			Text="Veranstaltung vormerken"
             Clicked="ReserveEvent"
 			WidthRequest="{ artina:OnOrientationDouble
 				LandscapePhone=200,

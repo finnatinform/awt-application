@@ -1,6 +1,5 @@
 ﻿using AwtApplication.Models;
 using AwtApplication.Params;
-using AwtApplication.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -69,6 +68,7 @@ namespace AwtApplication.Services
             catch ( Exception _Exception)
 #pragma warning restore CS0168 // Variable is declared but never used
             {
+                _Client = null;
                 HandleServerResponse("error", _MsgType, _OnSuccess);
                 //HandleException(Messages.EXCEPTION_TIMEOUT);
             }
@@ -269,7 +269,7 @@ namespace AwtApplication.Services
 
         public static void CancelAllRequests()
         {
-            _Client.CancelPendingRequests();
+            _Client = null;
         }
 
         private static void HandleException( string _ErrorMsg , bool _InBackground = false )

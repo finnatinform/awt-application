@@ -6,7 +6,7 @@
 	x:Class="AwtApplication.GrialDemoSettings"
 	xmlns:artina="clr-namespace:UXDivers.Artina.Shared;assembly=UXDivers.Artina.Shared"
 	BackgroundColor="{DynamicResource BasePageColor}"
-	Title="Taxiunternehmen">
+	Title="Taxiunternehmen in Aachen">
     <ContentPage.Content>
         <ListView
             x:Name="TaxiListView"
