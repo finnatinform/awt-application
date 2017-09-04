@@ -1,6 +1,7 @@
 ﻿using AwtApplication.Models;
 using AwtApplication.Params;
 using Newtonsoft.Json;
+using Plugin.DeviceInfo;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -30,7 +31,8 @@ namespace AwtApplication.Services
         MSG_SEND_USER_DATA,
         MSG_LOAD_NOTIFICATIONS,
         MSG_SEND_FEEDBACK,
-        MSG_LOAD_BREAKOUT_SESSION
+        MSG_LOAD_BREAKOUT_SESSION,
+        MSG_LOAD_SINGLE_EVENT
     }
     // This is totally fake until now
     public class CommunicationService
@@ -96,6 +98,8 @@ namespace AwtApplication.Services
                     return false;
                 case EMessageTypes.MSG_LOAD_BREAKOUT_SESSION:
                     return false;
+                case EMessageTypes.MSG_LOAD_SINGLE_EVENT:
+                    return false;
 
                 default:
                     // WTF??
@@ -125,6 +129,8 @@ namespace AwtApplication.Services
                     return "feedback/add";
                 case EMessageTypes.MSG_LOAD_BREAKOUT_SESSION:
                     return "events/listbreakout";
+                case EMessageTypes.MSG_LOAD_SINGLE_EVENT:
+                    return "events/single";
                 default:
                     // WTF??
                     throw new NotImplementedException();
@@ -216,11 +222,20 @@ namespace AwtApplication.Services
                 case EMessageTypes.MSG_SEND_FEEDBACK:
                     Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnCommunicationSuccess)(_Answer));
                     break;
+                case EMessageTypes.MSG_LOAD_SINGLE_EVENT:
+                    Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnCommunicationSuccess)(_Answer));
+                    break;
+
                 default:
                     throw new NotImplementedException();
             }
         }
 
+        public static void LoadSingleEvent(int _EventIdent, OnCommunicationSuccess _OnSuccess)
+        {
+            string HData = JsonConvert.SerializeObject(new PersonalTimelineObject() { IDENT = CrossDeviceInfo.Current.Id, EVENT_IDENT = _EventIdent });
+            CallServer(EMessageTypes.MSG_LOAD_SINGLE_EVENT, HData, _OnSuccess);
+        }
         public static async Task LoadReferents(OnLoadReferentsSuccess _OnSuccess )
         {  
             CallServer(EMessageTypes.MSG_LOAD_REFERENTS, "", _OnSuccess);  

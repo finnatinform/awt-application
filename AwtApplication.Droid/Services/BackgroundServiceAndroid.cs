@@ -195,7 +195,7 @@ namespace AwtApplication.Droid.Services
                 {
                     ShowNotification(HNotification);
                     // Not important,
-                    AwtApplication.Services.NotificationService._Notifications.Remove(HNotification);
+                    //AwtApplication.Services.NotificationService._Notifications.Remove(HNotification);
                 }
             }
         }
@@ -203,13 +203,13 @@ namespace AwtApplication.Droid.Services
         private void ShowNotification(Models.Notification _Notification)
         {
             Intent HClickIntent = new Intent(_context, (typeof(MainActivity)));
-            HClickIntent.PutExtra("BY_EVENT", _Notification.BY_EVENT);
-            if (_Notification.BY_EVENT)
+            HClickIntent.PutExtra("BY_EVENT", (_Notification.EVENT_IDENT!=-1));
+            if (_Notification.EVENT_IDENT != -1)
             {
                 HClickIntent.PutExtra("EVENT_IDENT",_Notification.EVENT_IDENT);
             } else
             {
-                HClickIntent.PutExtra("EVENT_IDENT", _Notification.EVENT_IDENT);
+                HClickIntent.PutExtra("START_DATE", _Notification.EVENT_DATE);
             }
 
             // Wir werden nicht mehr als 10000 notifications haben
@@ -222,6 +222,7 @@ namespace AwtApplication.Droid.Services
                 .SetContentTitle(_Notification.CAPTION)
                 .SetContentText(_Notification.DESCRIPTION)
                 .SetDefaults(NotificationDefaults.Vibrate)
+                .SetAutoCancel(true)
                 .SetSmallIcon(Resource.Drawable.icon);
 
             Android.App.Notification HNotification = HBuilder.Build();

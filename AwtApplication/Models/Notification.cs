@@ -24,6 +24,6 @@ namespace AwtApplication.Models
         public int EVENT_IDENT;
         public bool BY_EVENT;
         public int IDENT;
-        public OnNotificationAccept ON_SUCCESS;
+        public string EVENT_DATE;
     }
 }

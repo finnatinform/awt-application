@@ -24,5 +24,10 @@ namespace AwtApplication.Models
             get;
             set;
         }
+        public int EVENT_IDENT
+        {
+            get;
+            set;
+        }
     }
 }

@@ -65,18 +65,6 @@ namespace AwtApplication
                     Badge = 0,
                     Callback = ViewService.ShowTaxi
                 }
-                ,
-                new DashboardMultipleTileItem
-                {
-                    Title = "DEVELOP",
-                    BackgroundColor = "#E4ECF0",
-                    IconColor = "#5A6E78",
-                    ShowBackgroundColor = true,
-                    BackgroundImage = "",
-                    Icon = GrialShapesFont.PhoneIphone,
-                    Badge = 0,
-                    Callback = ()=>ViewService.ShowBreakoutSession("03.09.2017 13:00")
-                }
             };
 		}
 

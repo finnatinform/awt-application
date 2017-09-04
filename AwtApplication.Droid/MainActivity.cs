@@ -34,7 +34,26 @@ namespace AwtApplication.Droid
 	]
 	public class MainActivity : FormsAppCompatActivity
 	{
-		protected override void OnCreate(Bundle bundle)
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            if (intent.HasExtra("BY_EVENT"))
+            {
+                bool HFromEvent = intent.GetBooleanExtra("BY_EVENT", false);
+                if (HFromEvent)
+                {
+                    int HEventIdent = intent.GetIntExtra("EVENT_IDENT", -1);
+                    ViewService.ShowEventDetailByIdent(HEventIdent);
+                }
+                else
+                {
+                    // Dann haben wir ein Breakoutsession Start-Datum
+                    string HBreakoutStartDate = intent.GetStringExtra("START_DATE");
+                    ViewService.ShowBreakoutSession(HBreakoutStartDate);
+                }
+            }
+        }
+        protected override void OnCreate(Bundle bundle)
 		{
             // Changing to App's theme since we are OnCreate and we are ready to 
             // "hide" the splash
@@ -62,16 +81,14 @@ namespace AwtApplication.Droid
                 bool HFromEvent = this.Intent.GetBooleanExtra("BY_EVENT", false);
                 if ( HFromEvent )
                 {
-                    // TODO Alleinstehendes Event laden
-                    // Dann haben wir einen Event Ident
-
+                    int HEventIdent = this.Intent.GetIntExtra("EVENT_IDENT",-1);
+                    ViewService.ShowEventDetailByIdent(HEventIdent);
                 } else
                 {
                     // Dann haben wir ein Breakoutsession Start-Datum
-
+                    string HBreakoutStartDate = this.Intent.GetStringExtra("START_DATE");
+                    ViewService.ShowBreakoutSession(HBreakoutStartDate);
                 }
-
-                // TODO SHOW BREAKOUT_SESSION or Event
             }
         }
 

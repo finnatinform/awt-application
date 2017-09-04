@@ -1,7 +1,9 @@
 ﻿using AwtApplication.Models;
 using AwtApplication.Params;
 using AwtApplication.Views;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using Xamarin.Forms;
 
@@ -9,7 +11,7 @@ namespace AwtApplication.Services
 {
 
     public delegate void ShowView() ;
-    class ViewService
+    public class ViewService
     {
         public static bool InBreakoutSession ;
         public static INavigation NavigationService;
@@ -29,7 +31,7 @@ namespace AwtApplication.Services
             await NavigationService.PushAsync(new DocumentTimelinePage());
             SetPageTitle(Messages.PAGE_TITLE_TIMELINE_LONG);
         }
-        public async static void ShowMap()
+        public static void ShowMap()
         {
 
             switch (Device.OS)
@@ -65,12 +67,30 @@ namespace AwtApplication.Services
             return new NavigationPage(HContent);
         }
 
+        protected static void LoadSingleEventSucess( string _Answer )
+        {
+            if ( _Answer == "error" )
+            {
+                NotificationService.ShowAlert("Error","Es ist ein Fehler beim LAden des Events aufgetreten","SCHLIEßEN");
+            } else
+            {
+                List<Event> HEvent = JsonConvert.DeserializeObject<List<Event>>(_Answer);
+                HEvent[0].GenerateReferent();
+                ShowEventDetail(HEvent[0]);
+            }
+        }
+
+        public static void ShowEventDetailByIdent(int _EventIdent)
+        {
+            CommunicationService.LoadSingleEvent(_EventIdent, new OnCommunicationSuccess(LoadSingleEventSucess) );
+        }
+
         internal async static void ShowAGB()
         {
             await NavigationService.PushAsync(new GenericAboutPage());
         }
 
-        internal async static void ShowBreakoutSession( string _DateTime )
+        public async static void ShowBreakoutSession( string _DateTime )
         {
             InBreakoutSession = true;
             DateTime HTime = DateTime.ParseExact(_DateTime, Constants.TIME_FORMAT, null);
