@@ -36,5 +36,11 @@ namespace AwtApplication.Params
         public static string THANK_YOU = "Vielen Dank!";
         public static string FEEDBACK_THANKS = "Vielen Dank für ihre Rückmeldung.";
         public static string FEEDBACK_ERROR = "Beim Übertragen Ihrer Bewertung ist leider ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+
+        public static string RESERVATION_ERROR = "Es ist ein Fehler beim Vormerken der Veranstaltung aufgetreten. Bitte versuchen Sie es später erneut.";
+        public static string SEND_RESERVATION = "Veranstaltung vormerken";
+        public static string IN_FEEDBACK = "Sende Feedback...";
+        public static string SEND_FEEDBACK = "Feedback absenden";
+        public static string IN_RESERVATION = "Veranstaltung wird vorgemerkt...";
     }
 }

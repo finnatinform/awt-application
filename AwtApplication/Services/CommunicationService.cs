@@ -40,17 +40,17 @@ namespace AwtApplication.Services
         private static HttpClient _Client;
         private async static void CallServer( EMessageTypes _MsgType , string _Data , Delegate _OnSuccess)
         {
-            if ( _Client == null )
-            {
-                _Client = new HttpClient();
-                _Client.BaseAddress = new Uri("http://"+Constants.SERVER_URL+'/');
-                _Client.DefaultRequestHeaders.Accept.Clear();
-                _Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-                _Client.Timeout = TimeSpan.FromSeconds(30);
-            }
-
             try
             {
+                if (_Client == null)
+                {
+                    _Client = new HttpClient();
+                    _Client.BaseAddress = new Uri("http://" + Constants.SERVER_URL + '/');
+                    _Client.DefaultRequestHeaders.Accept.Clear();
+                    _Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                    _Client.Timeout = TimeSpan.FromSeconds(30);
+                }
+
                 HttpResponseMessage HResponse = null;
                 string HSubUrl = GetSubUrl(_MsgType);
                 if (IsGetCall(_MsgType))
@@ -72,7 +72,6 @@ namespace AwtApplication.Services
             {
                 _Client = null;
                 HandleServerResponse("error", _MsgType, _OnSuccess);
-                //HandleException(Messages.EXCEPTION_TIMEOUT);
             }
         }
 

@@ -11,6 +11,12 @@ namespace AwtApplication.ViewModels
     {
         private Event FEvent;
 
+        public bool InCheckKey
+        {
+            get;
+            set;
+        }
+
         public ProductItemViewModel(Event _Event)
         {
             FEvent = _Event;

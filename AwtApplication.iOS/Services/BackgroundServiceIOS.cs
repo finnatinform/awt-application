@@ -113,7 +113,16 @@ namespace AwtApplication.iOS.Services
             HUINotification.AlertTitle = _Notification.CAPTION;
             HUINotification.AlertBody = _Notification.DESCRIPTION;
             HUINotification.AlertAction = "ViewAlert";
-            HUINotification.UserInfo.SetValueForKey(new NSNumber(_Notification.IDENT),new NSString("IDENT"));
+
+            HUINotification.UserInfo.SetValueForKey(new NSNumber(_Notification.EVENT_IDENT!=-1),new NSString("BY_EVENT") );
+            if (_Notification.EVENT_IDENT != -1)
+            {
+                HUINotification.UserInfo.SetValueForKey(new NSNumber(_Notification.EVENT_IDENT), new NSString("EVENT_IDENT"));
+            }
+            else
+            {
+                HUINotification.UserInfo.SetValueForKey(new NSString(_Notification.START_DATE), new NSString("START_DATE"));
+            }
             UIApplication.SharedApplication.ScheduleLocalNotification(HUINotification);
         }
     }

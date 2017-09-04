@@ -1,4 +1,5 @@
 using AwtApplication.iOS.Services;
+using AwtApplication.Services;
 using FFImageLoading.Forms.Touch;
 using Foundation;
 using Lottie.Forms.iOS.Renderers;
@@ -56,18 +57,28 @@ namespace AwtApplication.iOS
             return base.FinishedLaunching (app, options);
 		}
 
-        // WTF: [BlockProxy(typeof(NIDActionArity1V137))] 
+        // WTF: [BlockProxy(typeof(NIDActionArity1V137))] Action<...
         public override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> _CompletionHandler)
         {
             BackgroundServiceIOS.DoWork( _CompletionHandler );
         }
         public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
         {
-            // show an alert
-            UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
-            okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-
-            Window.RootViewController.PresentViewController(okayAlertController, true, null);
+            NSObject HByEvent;
+            NSObject HIdent;
+            if (notification.UserInfo.TryGetValue(new NSString("BY_EVENT"), out HByEvent))
+            {
+                bool HFromEvent = (bool) (HByEvent as NSNumber);
+                if ( HFromEvent )
+                {
+                    HIdent = notification.UserInfo.ValueForKey(new NSString("EVENT_IDENT"));
+                    ViewService.ShowEventDetailByIdent((int) ( HIdent as NSNumber));
+                } else
+                {
+                    HIdent = notification.UserInfo.ValueForKey(new NSString("START_DATE"));
+                    ViewService.ShowBreakoutSession((HIdent as NSString));
+                }
+            }
         }
     }
 }

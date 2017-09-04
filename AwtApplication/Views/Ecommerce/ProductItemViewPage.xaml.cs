@@ -11,6 +11,8 @@ namespace AwtApplication
 	{
         private int HiddenRating;
 
+        private bool InAction;
+
 		public ProductItemViewPage( Event _Event, bool _IsModal )
 		{
 			InitializeComponent ();
@@ -22,7 +24,13 @@ namespace AwtApplication
 
         private void SendFeedback(object sender, EventArgs e)
         {
-            CommunicationService.SendFeedback(HiddenRating, (this.BindingContext as Models.Event).IDENT, new OnCommunicationSuccess(this.OnFeedbackAnswer));
+            if (!InAction)
+            {
+                InAction = true;
+                FeedbackButton . Text = Messages.IN_FEEDBACK;
+                FeedbackButton.IsEnabled = false;
+                CommunicationService.SendFeedback(HiddenRating, (this.BindingContext as Models.Event).IDENT, new OnCommunicationSuccess(this.OnFeedbackAnswer));
+            }
         }
 
         private async void OnFeedbackAnswer( string _Answer )
@@ -41,13 +49,23 @@ namespace AwtApplication
                 }
             } else
             {
+                InAction = false;
+                FeedbackButton.Text = Messages.SEND_FEEDBACK;
+                FeedbackButton.IsEnabled = true;
                 NotificationService.ShowAlert(Messages.ERROR, Messages.FEEDBACK_ERROR, Messages.CLOSE);
             }
         }
 
         private void ReserveEvent(object sender, EventArgs e)
         {
-            CommunicationService.ReserveEvent( ( BindingContext as Event ).IDENT , new OnCommunicationSuccess(OnReservationSucess) );
+            if (!InAction)
+            {
+                InAction = true;
+                ReserveButton.Text = Messages.IN_RESERVATION;
+                ReserveButton.IsEnabled = false;
+                CommunicationService.ReserveEvent((BindingContext as Event).IDENT, new OnCommunicationSuccess(OnReservationSucess));
+            }
+            
         }
 
         private void OnReservationSucess( string _Answer)
@@ -59,6 +77,12 @@ namespace AwtApplication
                 ReserveButton.IsVisible = false;
                 LabelReserved.IsVisible = true;
                 ForceLayout();
+            } else
+            {
+                InAction = false;
+                ReserveButton.Text = Messages.SEND_RESERVATION;
+                ReserveButton.IsEnabled = true;
+                NotificationService.ShowAlert(Messages.ERROR, Messages.RESERVATION_ERROR, Messages.CLOSE);
             }
         }
 
