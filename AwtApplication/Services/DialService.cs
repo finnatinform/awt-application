@@ -19,9 +19,5 @@ namespace AwtApplication.Services
         {
             Device.OpenUri(new Uri("mailto:"+_Mail+"?subject="+_Subject));
         }
-        public static void OpenContactMail ()
-        {
-            SendMail(Constants.FEEDBACK_MAIL, Constants.FEEDBACK_MAIL_SUBJECT);
-        }
     }
 }
