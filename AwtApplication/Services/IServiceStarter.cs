@@ -3,7 +3,7 @@
     public interface IServiceStarter
     {
         void StartServices();
-        void TriggerBackgroundRunManually();
+        void TriggerBackgroundRunManually( bool _AlsoOnAndroid = false );
     }
 
 }

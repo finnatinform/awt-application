@@ -9,9 +9,18 @@ namespace AwtApplication.iOS.Services
     {
         public void StartServices()
         {
+            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+            {
+                var notificationSettings = UIUserNotificationSettings.GetSettingsForTypes(
+                    UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null
+                );
+
+                UIApplication.SharedApplication.RegisterUserNotificationSettings(notificationSettings);
+            }
+
             UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(Params.Constants.CheckNotificationsInterval);
         }
-        public void TriggerBackgroundRunManually()
+        public void TriggerBackgroundRunManually(bool _AlsoOnAndroid = false)
         {
             BackgroundServiceIOS.DoWork( null);
         }

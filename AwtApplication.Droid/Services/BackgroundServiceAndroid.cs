@@ -147,7 +147,7 @@ namespace AwtApplication.Droid.Services
         private void UpdateCount()
         {
             Count++;
-            if (Count > 5 )
+            if (Count > 15 )
             {
                 Count = 1;
             }
@@ -158,10 +158,13 @@ namespace AwtApplication.Droid.Services
             try
             {
                 UpdateCount();
-                // First get last loaded
-                string HLastLoaded = GetLastLoaded();
-                // synchronized
-                await LoadData( HLastLoaded );
+                if (ShouldLoadData)
+                {
+                    // First get last loaded
+                    string HLastLoaded = GetLastLoaded();
+                    // synchronized
+                    await LoadData(HLastLoaded);
+                }
 
                 CheckNotifications();
             }

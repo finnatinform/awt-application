@@ -70,14 +70,7 @@ namespace AwtApplication.iOS.Services
         }
         private static void CheckDuplicates(List<Models.Notification> _NewItems)
         {
-            foreach (Models.Notification HNotification in _NewItems)
-            {
-                List<UILocalNotification> HToKill = UIApplication.SharedApplication.ScheduledLocalNotifications.ToList().FindAll(n => (n.UserInfo.ValueForKey(new NSString("IDENT")) as NSNumber).Int32Value==HNotification.IDENT);
-                foreach ( UILocalNotification HNote in HToKill )
-                {
-                    UIApplication.SharedApplication.CancelLocalNotification(HNote);
-                }
-            }
+            // Funktioniert nicht, muss ich rausnehmen
         }
 
         private static string GetLastLoaded()
@@ -100,7 +93,7 @@ namespace AwtApplication.iOS.Services
             AwtApplication.Services.NotificationService._Notifications.AddRange(_Notifications);
             foreach (Models.Notification HNotification in _Notifications)
             {
-                    ShowNotification(HNotification);
+               ShowNotification(HNotification);
             }
         }
 

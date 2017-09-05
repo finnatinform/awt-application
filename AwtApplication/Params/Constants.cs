@@ -13,8 +13,7 @@ namespace AwtApplication.Params
         public static string STORAGE_KEY_USER = "STORAGE_KEY_USER";
         public static char UNLOCK_KEY_SEPARATOR = '@';
 
-        public static int LoadDataInterval = 10000; // TODO 60000
-        public static int CheckNotificationsInterval = 5000; // TODO 60000
+        public static int LoadDataInterval = 60000; // TODO 60000
         public static string ADRESS_EUROGRESS = "Eurogress Aachen"; // Monheimsallee 48, 52062 Aachen
 
         public static string STORAGE_KEY_LAST_LOADED = "STORAGE_KEY_LAST_LOADED";

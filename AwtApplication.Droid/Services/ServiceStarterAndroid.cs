@@ -30,9 +30,12 @@ namespace AwtApplication.Droid.Services
             StartBackgroundServiceAndroid(Application.Context);
         }
 
-        public void TriggerBackgroundRunManually()
+        public void TriggerBackgroundRunManually(bool _AlsoOnAndroid = false)
         {
-            // No Need
+            if ( _AlsoOnAndroid )
+            {
+                ServiceStarterAndroid.StartBackgroundServiceAndroid(Application.Context);
+            }
         }
     }
 }

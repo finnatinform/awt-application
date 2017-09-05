@@ -32,15 +32,6 @@ namespace AwtApplication.iOS
 
             LoadApplication (new App ());
 
-            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
-            {
-                var notificationSettings = UIUserNotificationSettings.GetSettingsForTypes(
-                    UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null
-                );
-
-                app.RegisterUserNotificationSettings(notificationSettings);
-            }
-
             if (options != null)
             {
                 // check for a local notification
@@ -64,21 +55,21 @@ namespace AwtApplication.iOS
         }
         public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
         {
-            NSObject HByEvent;
-            NSObject HIdent;
-            if (notification.UserInfo.TryGetValue(new NSString("BY_EVENT"), out HByEvent))
-            {
-                bool HFromEvent = (bool) (HByEvent as NSNumber);
-                if ( HFromEvent )
-                {
-                    HIdent = notification.UserInfo.ValueForKey(new NSString("EVENT_IDENT"));
-                    ViewService.ShowEventDetailByIdent((int) ( HIdent as NSNumber));
-                } else
-                {
-                    HIdent = notification.UserInfo.ValueForKey(new NSString("START_DATE"));
-                    ViewService.ShowBreakoutSession((HIdent as NSString));
-                }
-            }
+            //NSObject HByEvent;
+            //NSObject HIdent;
+            //if (notification.UserInfo.TryGetValue(new NSString("BY_EVENT"), out HByEvent))
+            //{
+            //    bool HFromEvent = (bool) (HByEvent as NSNumber);
+            //    if ( HFromEvent )
+            //    {
+            //        HIdent = notification.UserInfo.ValueForKey(new NSString("EVENT_IDENT"));
+            //        ViewService.ShowEventDetailByIdent((int) ( HIdent as NSNumber));
+            //    } else
+            //    {
+            //        HIdent = notification.UserInfo.ValueForKey(new NSString("START_DATE"));
+            //        ViewService.ShowBreakoutSession((HIdent as NSString));
+            //    }
+            //}
         }
     }
 }
