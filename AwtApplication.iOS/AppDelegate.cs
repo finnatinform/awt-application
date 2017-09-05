@@ -87,7 +87,7 @@ namespace AwtApplication.iOS
                         okCancelAlertController.AddAction(UIAlertAction.Create(Params.Messages.CLOSE, UIAlertActionStyle.Cancel, alert => { }));
 
                         // Present Alert
-                        Window.RootViewController.PresentViewController(okCancelAlertController, true, null);
+                        application.KeyWindow.RootViewController.PresentViewController(okCancelAlertController, true, null);
                     }
                 }
             }
