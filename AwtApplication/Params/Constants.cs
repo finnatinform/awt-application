@@ -8,12 +8,13 @@ namespace AwtApplication.Params
 {
     public static class Constants
     {
-        public static string SERVER_URL = "ec2-54-93-104-249.eu-central-1.compute.amazonaws.com:9000"; // "192.168.0.59:9000";
+        public static string SERVER_URL = "ec2-54-93-104-249.eu-central-1.compute.amazonaws.com:9000"; //
         public static string STORAGE_KEY_CUSTOMER = "STORAGE_KEY_CUSTOMER" ;
         public static string STORAGE_KEY_USER = "STORAGE_KEY_USER";
         public static char UNLOCK_KEY_SEPARATOR = '@';
 
         public static int LoadDataInterval = 60000; // TODO 60000
+        public static int CheckNotificationsInterval = 60; // Sekunden!
         public static string ADRESS_EUROGRESS = "Eurogress Aachen"; // Monheimsallee 48, 52062 Aachen
 
         public static string STORAGE_KEY_LAST_LOADED = "STORAGE_KEY_LAST_LOADED";

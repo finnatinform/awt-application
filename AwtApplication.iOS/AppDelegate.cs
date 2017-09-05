@@ -40,7 +40,24 @@ namespace AwtApplication.iOS
                     var localNotification = options[UIApplication.LaunchOptionsLocalNotificationKey] as UILocalNotification;
                     if (localNotification != null)
                     {
-                        // TODO
+                        NSObject HByEvent;
+                        NSObject HIdent;
+                        if (localNotification.UserInfo.TryGetValue(new NSString("BY_EVENT"), out HByEvent))
+                        {
+                            bool HFromEvent = (bool)(HByEvent as NSNumber);
+                            if (HFromEvent)
+                            {
+                                HIdent = localNotification.UserInfo.ValueForKey(new NSString("EVENT_IDENT"));
+                                ViewService.ShowEventDetailByIdent((int)(HIdent as NSNumber));
+                            }
+                            else
+                            {
+                                if (localNotification.UserInfo.TryGetValue(new NSString("START_DATE"), out HIdent))
+                                {
+                                    ViewService.ShowBreakoutSession((HIdent as NSString));
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -55,21 +72,40 @@ namespace AwtApplication.iOS
         }
         public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
         {
-            //NSObject HByEvent;
-            //NSObject HIdent;
-            //if (notification.UserInfo.TryGetValue(new NSString("BY_EVENT"), out HByEvent))
-            //{
-            //    bool HFromEvent = (bool) (HByEvent as NSNumber);
-            //    if ( HFromEvent )
-            //    {
-            //        HIdent = notification.UserInfo.ValueForKey(new NSString("EVENT_IDENT"));
-            //        ViewService.ShowEventDetailByIdent((int) ( HIdent as NSNumber));
-            //    } else
-            //    {
-            //        HIdent = notification.UserInfo.ValueForKey(new NSString("START_DATE"));
-            //        ViewService.ShowBreakoutSession((HIdent as NSString));
-            //    }
-            //}
+            if ( application.ApplicationState==UIApplicationState.Background )
+            {
+                //Create Alert
+                var okCancelAlertController = UIAlertController.Create(Params.Messages.FEEDBACK, Params.Messages.FEEDBACK_PLEASE, UIAlertControllerStyle.Alert);
+
+                //Add Actions
+                okCancelAlertController.AddAction(UIAlertAction.Create(Params.Messages.OK, UIAlertActionStyle.Default, alert => Alertok(notification)));
+                okCancelAlertController.AddAction(UIAlertAction.Create(Params.Messages.CLOSE, UIAlertActionStyle.Cancel, alert => { }));
+
+                // Present Alert
+                Window.RootViewController.PresentViewController(okCancelAlertController, true, null);
+            }
+        }
+
+        private void Alertok(UILocalNotification notification)
+        {
+            NSObject HByEvent;
+            NSObject HIdent;
+            if (notification.UserInfo.TryGetValue(new NSString("BY_EVENT"), out HByEvent))
+            {
+                bool HFromEvent = (bool)(HByEvent as NSNumber);
+                if (HFromEvent)
+                {
+                    HIdent = notification.UserInfo.ValueForKey(new NSString("EVENT_IDENT"));
+                    ViewService.ShowEventDetailByIdent((int)(HIdent as NSNumber));
+                }
+                else
+                {
+                    if (notification.UserInfo.TryGetValue(new NSString("START_DATE"), out HIdent))
+                    {
+                        ViewService.ShowBreakoutSession((HIdent as NSString));
+                    }
+                }
+            }
         }
     }
 }

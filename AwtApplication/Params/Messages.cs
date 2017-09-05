@@ -42,5 +42,8 @@ namespace AwtApplication.Params
         public static string IN_FEEDBACK = "Sende Feedback...";
         public static string SEND_FEEDBACK = "Feedback absenden";
         public static string IN_RESERVATION = "Veranstaltung wird vorgemerkt...";
+
+        public static string FEEDBACK = "Feedback";
+        public static string FEEDBACK_PLEASE = "Bitte geben Sie Feedback zur letzten Breakoutsession!";
     }
 }

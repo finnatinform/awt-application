@@ -2,7 +2,6 @@
 using Android.Content;
 using Android.OS;
 using AwtApplication.Params;
-using AwtApplication.Services;
 using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using System;

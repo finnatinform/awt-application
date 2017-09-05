@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Plugin.DeviceInfo;
 using System.Net.Http;
+using AwtApplication.Params;
 
 namespace AwtApplication.iOS.Services
 {
@@ -68,9 +69,14 @@ namespace AwtApplication.iOS.Services
             CheckDuplicates(HNotifications);
             CheckNotifications(HNotifications);
         }
+        private static bool FOneDeleted;
         private static void CheckDuplicates(List<Models.Notification> _NewItems)
         {
-            // Funktioniert nicht, muss ich rausnehmen
+            foreach (Models.Notification HNotification in _NewItems)
+            {
+                // Delete Duplicates
+                FOneDeleted = FOneDeleted ||AwtApplication.Services.NotificationService._Notifications.RemoveAll(n => n.IDENT.Equals(HNotification.IDENT)) > 0 ;
+            }
         }
 
         private static string GetLastLoaded()
@@ -91,38 +97,53 @@ namespace AwtApplication.iOS.Services
         private static void CheckNotifications( List<Models.Notification> _Notifications )
         {
             AwtApplication.Services.NotificationService._Notifications.AddRange(_Notifications);
-            foreach (Models.Notification HNotification in _Notifications)
+            if ( FOneDeleted )
             {
-               ShowNotification(HNotification);
+                UIApplication.SharedApplication.CancelAllLocalNotifications();
+                foreach (Models.Notification HNotification in AwtApplication.Services.NotificationService._Notifications)
+                {
+                    ShowNotification(HNotification);
+                }
+            } else
+            {
+                foreach (Models.Notification HNotification in _Notifications)
+                {
+                    ShowNotification(HNotification);
+                }
             }
+
+
+            FOneDeleted = false;
         }
 
         public static void ShowNotification(Models.Notification _Notification)
         {
-            var HUINotification = new UILocalNotification();
-            NSDateFormatter HFormatter = new NSDateFormatter();
-            HFormatter.DateFormat = Params.Constants.TIME_FORMAT;
-            HUINotification.FireDate = HFormatter.Parse(_Notification.START_DATE);
-            HUINotification.AlertTitle = _Notification.CAPTION;
-            HUINotification.AlertBody = _Notification.DESCRIPTION;
-            HUINotification.AlertAction = "ViewAlert";
+            if (DateTime.ParseExact(_Notification.START_DATE, Constants.TIME_FORMAT, null) > DateTime.Now){
+                var HUINotification = new UILocalNotification();
+                NSDateFormatter HFormatter = new NSDateFormatter();
+                HFormatter.DateFormat = Params.Constants.TIME_FORMAT;
+                HUINotification.FireDate = HFormatter.Parse(_Notification.START_DATE);
+                HUINotification.AlertTitle = _Notification.CAPTION;
+                HUINotification.AlertBody = _Notification.DESCRIPTION;
+                HUINotification.AlertAction = "ViewAlert";
 
-            NSMutableDictionary HCustomDictionary = new NSMutableDictionary();
+                NSMutableDictionary HCustomDictionary = new NSMutableDictionary();
 
-            HCustomDictionary.SetValueForKey(new NSNumber(_Notification.EVENT_IDENT!=-1),new NSString("BY_EVENT") );
-            if (_Notification.EVENT_IDENT != -1)
-            {
-                HCustomDictionary.SetValueForKey(new NSNumber(_Notification.EVENT_IDENT), new NSString("EVENT_IDENT"));
-            }
-            else
-            {
-                if (_Notification.EVENT_DATE != "")
+                HCustomDictionary.SetValueForKey(new NSNumber(_Notification.EVENT_IDENT != -1), new NSString("BY_EVENT"));
+                if (_Notification.EVENT_IDENT != -1)
                 {
-                    HCustomDictionary.SetValueForKey(new NSString(_Notification.START_DATE), new NSString("START_DATE"));
+                    HCustomDictionary.SetValueForKey(new NSNumber(_Notification.EVENT_IDENT), new NSString("EVENT_IDENT"));
                 }
+                else
+                {
+                    if (_Notification.EVENT_DATE != "")
+                    {
+                        HCustomDictionary.SetValueForKey(new NSString(_Notification.EVENT_DATE), new NSString("START_DATE"));
+                    }
+                }
+                HUINotification.UserInfo = HCustomDictionary;
+                UIApplication.SharedApplication.ScheduleLocalNotification(HUINotification);
             }
-            HUINotification.UserInfo = HCustomDictionary;
-            UIApplication.SharedApplication.ScheduleLocalNotification(HUINotification);
         }
     }
 }
