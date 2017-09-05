@@ -47,9 +47,12 @@ namespace AwtApplication.Droid
                 }
                 else
                 {
-                    // Dann haben wir ein Breakoutsession Start-Datum
-                    string HBreakoutStartDate = intent.GetStringExtra("START_DATE");
-                    ViewService.ShowBreakoutSession(HBreakoutStartDate);
+                    if ( intent.HasExtra("START_DATE") )
+                    {
+                        // Dann haben wir ein Breakoutsession Start-Datum
+                        string HBreakoutStartDate = intent.GetStringExtra("START_DATE");
+                        ViewService.ShowBreakoutSession(HBreakoutStartDate);
+                    }
                 }
             }
         }
@@ -85,9 +88,12 @@ namespace AwtApplication.Droid
                     ViewService.ShowEventDetailByIdent(HEventIdent);
                 } else
                 {
-                    // Dann haben wir ein Breakoutsession Start-Datum
-                    string HBreakoutStartDate = this.Intent.GetStringExtra("START_DATE");
-                    ViewService.ShowBreakoutSession(HBreakoutStartDate);
+                    if (this.Intent.HasExtra("START_DATE"))
+                    {
+                        // Dann haben wir ein Breakoutsession Start-Datum
+                        string HBreakoutStartDate = this.Intent.GetStringExtra("START_DATE");
+                        ViewService.ShowBreakoutSession(HBreakoutStartDate);
+                    }
                 }
             }
         }

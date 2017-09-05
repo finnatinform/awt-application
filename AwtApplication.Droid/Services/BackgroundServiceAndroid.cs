@@ -63,18 +63,11 @@ namespace AwtApplication.Droid.Services
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
-            try
-            {
                 if (!_isRunning)
                 {
                     _isRunning = true;
                     _task.Start();
                 }
-            }
-            catch ( Exception _E )
-            {
-                StopSelf();
-            }
 
             return StartCommandResult.Sticky;
         }
@@ -209,7 +202,10 @@ namespace AwtApplication.Droid.Services
                 HClickIntent.PutExtra("EVENT_IDENT",_Notification.EVENT_IDENT);
             } else
             {
-                HClickIntent.PutExtra("START_DATE", _Notification.EVENT_DATE);
+                if (_Notification.EVENT_DATE != "")
+                {
+                    HClickIntent.PutExtra("START_DATE", _Notification.EVENT_DATE);
+                }
             }
 
             // Wir werden nicht mehr als 10000 notifications haben
