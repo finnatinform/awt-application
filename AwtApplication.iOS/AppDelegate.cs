@@ -72,17 +72,24 @@ namespace AwtApplication.iOS
         }
         public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
         {
-            if ( application.ApplicationState==UIApplicationState.Background )
+            if ( application.ApplicationState==UIApplicationState.Active )
             {
-                //Create Alert
-                var okCancelAlertController = UIAlertController.Create(Params.Messages.FEEDBACK, Params.Messages.FEEDBACK_PLEASE, UIAlertControllerStyle.Alert);
+                NSObject HByEvent;
+                if (notification.UserInfo!=null)
+                {
+                    if (notification.UserInfo.TryGetValue(new NSString("BY_EVENT"), out HByEvent))
+                    {
+                        //Create Alert
+                        var okCancelAlertController = UIAlertController.Create(notification.AlertTitle, notification.AlertBody, UIAlertControllerStyle.Alert);
 
-                //Add Actions
-                okCancelAlertController.AddAction(UIAlertAction.Create(Params.Messages.OK, UIAlertActionStyle.Default, alert => Alertok(notification)));
-                okCancelAlertController.AddAction(UIAlertAction.Create(Params.Messages.CLOSE, UIAlertActionStyle.Cancel, alert => { }));
+                        //Add Actions
+                        okCancelAlertController.AddAction(UIAlertAction.Create(Params.Messages.OK, UIAlertActionStyle.Default, alert => Alertok(notification)));
+                        okCancelAlertController.AddAction(UIAlertAction.Create(Params.Messages.CLOSE, UIAlertActionStyle.Cancel, alert => { }));
 
-                // Present Alert
-                Window.RootViewController.PresentViewController(okCancelAlertController, true, null);
+                        // Present Alert
+                        Window.RootViewController.PresentViewController(okCancelAlertController, true, null);
+                    }
+                }
             }
         }
 
