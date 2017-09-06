@@ -12,8 +12,8 @@
 				</shape>
 		</item>
     <item 
-      android:width="60dp"
-      android:height="60dp"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
       android:gravity="center">
       <bitmap android:src="@drawable/icon"
 			android:gravity="fill_horizontal|fill_vertical|center" />

@@ -16,19 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" colorSpace="calibratedRGB" red="90" green="110" blue="120" alpha="1"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="27" translatesAutoresizingMaskIntoConstraints="NO" image="icon.png">
-                                <rect key="frame" width="60" height="60" x="270" y="270"/>
-                                <constraints>
-                                    <constraint id="234" firstItem="27" firstAttribute="height" constant="60"/>
-                                    <constraint id="235" firstItem="27" firstAttribute="width" constant="60"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <constraints>
-                            <constraint id="229" firstItem="27" firstAttribute="centerX" secondItem="24" secondAttribute="centerX"/>
-                            <constraint id="232" firstItem="27" firstAttribute="centerY" secondItem="24" secondAttribute="centerY"/>
-                        </constraints>
+
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="25" userLabel="First Responder" sceneMemberID="firstResponder"/>
