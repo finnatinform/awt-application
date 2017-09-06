@@ -45,5 +45,7 @@ namespace AwtApplication.Params
 
         public static string FEEDBACK = "Feedback";
         public static string FEEDBACK_PLEASE = "Bitte geben Sie Feedback zur letzten Breakoutsession!";
+        public static string PAGE_TITLE_STANDS = "Fachschau";
+        public static string ERROR_AT_LOADING = "Es ist ein Fehler beim Laden der Daten aufgetreten. Bitte versuchen Sie es später erneut.";
     }
 }

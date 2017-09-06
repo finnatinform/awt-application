@@ -45,6 +45,17 @@ namespace AwtApplication
                 },
                 new DashboardMultipleTileItem
                 {
+                    Title = Messages.PAGE_TITLE_STANDS,
+                    BackgroundColor = "#E4ECF0",
+                    IconColor = "#5A6E78",
+                    ShowBackgroundColor = true,
+                    BackgroundImage = "",
+                    Icon = GrialShapesFont.DesktopWindows,
+                    Badge = 0,
+                    Callback = ViewService.ShowStandList
+                },
+                new DashboardMultipleTileItem
+                {
                     Title = Messages.PAGE_TITLE_MAP,
                     BackgroundColor = "#E4ECF0",
                     IconColor = "#BECB00",

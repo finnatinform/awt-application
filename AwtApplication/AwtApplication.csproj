@@ -41,6 +41,7 @@
     <Compile Include="Models\PersonalTimelineObject.cs" />
     <Compile Include="Models\Referent.cs" />
     <Compile Include="Models\ReserveObject.cs" />
+    <Compile Include="Models\Stand.cs" />
     <Compile Include="Models\Taxi.cs" />
     <Compile Include="Models\UnlockObject.cs" />
     <Compile Include="Models\User.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="ViewModels\ILoadingDataViewModel.cs" />
     <Compile Include="ViewModels\LockScreenViewModel.cs" />
     <Compile Include="ViewModels\ProductItemViewModel.cs" />
+    <Compile Include="ViewModels\StandsViewModel.cs" />
     <Compile Include="ViewModels\TimelineViewModel.cs" />
     <Compile Include="Views\About\GenericAboutPage.xaml.cs">
       <DependentUpon>GenericAboutPage.xaml</DependentUpon>
@@ -142,6 +144,12 @@
     </Compile>
     <Compile Include="Views\Social\TimelinePage.xaml.cs">
       <DependentUpon>TimelinePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Stands\Templates\StandItemTemplate.xaml.cs">
+      <DependentUpon>StandItemTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Stands\StandsList.xaml.cs">
+      <DependentUpon>StandsList.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
@@ -323,6 +331,19 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Navigation\Templates\CategoriesListWithIconsItemTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Stands\Templates\StandItemTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Stands\StandsList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

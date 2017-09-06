@@ -25,7 +25,10 @@ namespace AwtApplication.Services
         {
             await NavigationService.PushAsync(new TimelinePage());
         }
-
+        public async static void ShowStandList()
+        {
+            await NavigationService.PushAsync(new StandsList());
+        }
         public async static void ShowEventList()
         {
             await NavigationService.PushAsync(new DocumentTimelinePage());

@@ -15,6 +15,7 @@ namespace AwtApplication.Services
     public delegate void OnCommunicationError( string _ErrorMsg );
 
     public delegate void OnLoadReferentsSuccess( List<Referent> _Result );
+    public delegate void OnLoadStandsSuccess(List<Stand> _Result);
     public delegate void OnLoadEventsSuccess( List<Event> _Result);
     public delegate void OnLoadNotificationsSuccess(List<Notification> _Result);
 
@@ -32,7 +33,8 @@ namespace AwtApplication.Services
         MSG_LOAD_NOTIFICATIONS,
         MSG_SEND_FEEDBACK,
         MSG_LOAD_BREAKOUT_SESSION,
-        MSG_LOAD_SINGLE_EVENT
+        MSG_LOAD_SINGLE_EVENT,
+        MSG_LOAD_STANDS
     }
     // This is totally fake until now
     public class CommunicationService
@@ -99,6 +101,8 @@ namespace AwtApplication.Services
                     return false;
                 case EMessageTypes.MSG_LOAD_SINGLE_EVENT:
                     return false;
+                case EMessageTypes.MSG_LOAD_STANDS:
+                    return true;
 
                 default:
                     // WTF??
@@ -130,6 +134,8 @@ namespace AwtApplication.Services
                     return "events/listbreakout";
                 case EMessageTypes.MSG_LOAD_SINGLE_EVENT:
                     return "events/single";
+                case EMessageTypes.MSG_LOAD_STANDS:
+                    return "stands/list";
                 default:
                     // WTF??
                     throw new NotImplementedException();
@@ -144,7 +150,6 @@ namespace AwtApplication.Services
                 {
                     case EMessageTypes.MSG_SEND_USER_DATA:
                         FileService.SetStorageEntry(Constants.STORAGE_KEY_USER_NOT_SEND,FileService.GetUserData());
-                        
                         break;
                 }
                 
@@ -153,51 +158,97 @@ namespace AwtApplication.Services
             {
                 case EMessageTypes.MSG_LOAD_REFERENTS:
                     List<Referent> HReferents = new List<Referent>();
-                    HReferents = JsonConvert.DeserializeObject<List<Referent>>(_Answer);
-                    HReferents.RemoveAll( r => r.IDENT == 1 );
+                    if (_Answer!="error")
+                    {
+                        HReferents = JsonConvert.DeserializeObject<List<Referent>>(_Answer);
+                        HReferents.RemoveAll(r => r.IDENT == 1);
+                    } else
+                    {
+                        Device.BeginInvokeOnMainThread(() => NotificationService.ShowAlert(Messages.ERROR, Messages.ERROR_AT_LOADING, Messages.CLOSE));
+                    }
                     Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnLoadReferentsSuccess)(HReferents));
+                    break;
+                case EMessageTypes.MSG_LOAD_STANDS:
+                    List<Stand> HStands = new List<Stand>();
+                    if ( _Answer != "error" )
+                    {
+                        HStands = JsonConvert.DeserializeObject<List<Stand>>(_Answer);
+                        Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnLoadStandsSuccess)(HStands));
+                    } else
+                    {
+                        Device.BeginInvokeOnMainThread(() => NotificationService.ShowAlert(Messages.ERROR, Messages.ERROR_AT_LOADING, Messages.CLOSE));
+                    }
                     break;
                 case EMessageTypes.MSG_LOAD_ALL_EVENTS:
                     List<Event> HEvents = new List<Event>();
-                    HEvents = JsonConvert.DeserializeObject<List<Event>>(_Answer);
-                    HEvents.Sort(delegate(Event _A, Event _B) {
-                        return _A.START_AS_DATE.CompareTo(_B.START_AS_DATE);
-                    });
-                    foreach ( Event HEvent in HEvents )
+                    if (_Answer != "error")
                     {
-                        // Referents setzen
-                        HEvent.GenerateReferent();
-                        HEvent.IsInbound = (HEvents.IndexOf(HEvent) % 2) == 0;
+                        HEvents = JsonConvert.DeserializeObject<List<Event>>(_Answer);
+                        HEvents.Sort(delegate (Event _A, Event _B) {
+                            return _A.START_AS_DATE.CompareTo(_B.START_AS_DATE);
+                        });
+                        foreach (Event HEvent in HEvents)
+                        {
+                            // Referents setzen
+                            HEvent.GenerateReferent();
+                            HEvent.IsInbound = (HEvents.IndexOf(HEvent) % 2) == 0;
+                        }
+                    }
+                    else
+                    {
+                        Device.BeginInvokeOnMainThread(() => NotificationService.ShowAlert(Messages.ERROR, Messages.ERROR_AT_LOADING, Messages.CLOSE));
                     }
                     Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnLoadEventsSuccess)(HEvents));
                     break;
                 case EMessageTypes.MSG_LOAD_BREAKOUT_SESSION:
                     List<Event> HBreakoutEvents = new List<Event>();
-                    HBreakoutEvents = JsonConvert.DeserializeObject<List<Event>>(_Answer);
-                    foreach (Event HEvent in HBreakoutEvents)
+                    if (_Answer != "error")
                     {
-                        // Referents setzen
-                        HEvent.GenerateReferent();
+                        HBreakoutEvents = JsonConvert.DeserializeObject<List<Event>>(_Answer);
+                        foreach (Event HEvent in HBreakoutEvents)
+                        {
+                            // Referents setzen
+                            HEvent.GenerateReferent();
+                        }
+                    }
+                    else
+                    {
+                        Device.BeginInvokeOnMainThread(() => NotificationService.ShowAlert(Messages.ERROR, Messages.ERROR_AT_LOADING, Messages.CLOSE));
                     }
                     Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnLoadEventsSuccess)(HBreakoutEvents));
                     break;
                 case EMessageTypes.MSG_LOAD_USER_EVENTS:
                     List<Event> HPersonalEvents = new List<Event>();
-                    HPersonalEvents = JsonConvert.DeserializeObject<List<Event>>(_Answer);
-                    HPersonalEvents.Sort(delegate (Event _A, Event _B) {
-                        return _A.START_AS_DATE.CompareTo(_B.START_AS_DATE);
-                    });
-                    foreach (Event HPersonalEvent in HPersonalEvents)
+                    if (_Answer != "error")
                     {
-                        // Referents setzen
-                        if (HPersonalEvent.CAN_BE_RESERVED)
+                        HPersonalEvents = JsonConvert.DeserializeObject<List<Event>>(_Answer);
+                        HPersonalEvents.Sort(delegate (Event _A, Event _B) {
+                            return _A.START_AS_DATE.CompareTo(_B.START_AS_DATE);
+                        });
+                        foreach (Event HPersonalEvent in HPersonalEvents)
                         {
-                            HPersonalEvent.USER_HAS_RESERVED = true;
+                            // Referents setzen
+                            if (HPersonalEvent.CAN_BE_RESERVED)
+                            {
+                                HPersonalEvent.USER_HAS_RESERVED = true;
+                            }
+
+                            HPersonalEvent.GenerateReferent();
+                            HPersonalEvent.IsInbound = (HPersonalEvents.IndexOf(HPersonalEvent) % 2) == 0;
                         }
-                        
-                        HPersonalEvent.GenerateReferent();
-                        HPersonalEvent.IsInbound = (HPersonalEvents.IndexOf(HPersonalEvent) % 2) == 0;
                     }
+                    else
+                    {
+                        if (_Answer != "error")
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
                     Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnLoadEventsSuccess)(HPersonalEvents));
                     break;
                 case EMessageTypes.MSG_SEND_USER_DATA:
@@ -214,8 +265,10 @@ namespace AwtApplication.Services
                     break;
                 case EMessageTypes.MSG_LOAD_NOTIFICATIONS:
                     List<Notification> HNotifications = new List<Notification>();
-                    HNotifications = JsonConvert.DeserializeObject<List<Notification>>(_Answer);
-                    
+                    if (_Answer != "error")
+                    {
+                        HNotifications = JsonConvert.DeserializeObject<List<Notification>>(_Answer);
+                    }
                     Device.BeginInvokeOnMainThread(() => (_OnSuccess as OnLoadNotificationsSuccess)(HNotifications));
                     break;
                 case EMessageTypes.MSG_SEND_FEEDBACK:
@@ -238,6 +291,10 @@ namespace AwtApplication.Services
         public static async Task LoadReferents(OnLoadReferentsSuccess _OnSuccess )
         {  
             CallServer(EMessageTypes.MSG_LOAD_REFERENTS, "", _OnSuccess);  
+        }
+        public static async Task LoadStands(OnLoadStandsSuccess _OnSuccess)
+        {
+            CallServer(EMessageTypes.MSG_LOAD_STANDS, "", _OnSuccess);
         }
         public static async Task LoadTimeline(OnLoadEventsSuccess _OnSuccess )
         {
@@ -285,16 +342,6 @@ namespace AwtApplication.Services
         public static void CancelAllRequests()
         {
             _Client = null;
-        }
-
-        private static void HandleException( string _ErrorMsg , bool _InBackground = false )
-        {
-            if ( !_InBackground )
-            {
-                // TODO GO BACK TO HOMESCREEN
-                Device.BeginInvokeOnMainThread(() => NotificationService.ShowAlert(Messages.ERROR, _ErrorMsg, Messages.CLOSE));
-            }
-            
         }
     }
 }
