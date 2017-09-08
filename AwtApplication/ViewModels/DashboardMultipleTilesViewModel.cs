@@ -47,7 +47,7 @@ namespace AwtApplication
                 {
                     Title = Messages.PAGE_TITLE_STANDS,
                     BackgroundColor = "#E4ECF0",
-                    IconColor = "#5A6E78",
+                    IconColor = "#0091A5",
                     ShowBackgroundColor = true,
                     BackgroundImage = "",
                     Icon = GrialShapesFont.DesktopWindows,

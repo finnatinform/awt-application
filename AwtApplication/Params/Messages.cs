@@ -16,8 +16,8 @@ namespace AwtApplication.Params
         public static string UNLOCK_KEY_CHECKING = "Prüfe Key...";
 
 
-        public static string PAGE_TITLE_MY_TIMELINE = "Vorgemerkte";
-        public static string PAGE_TITLE_TIMELINE = "Veranstaltungen";
+        public static string PAGE_TITLE_MY_TIMELINE = "Meine Agenda";
+        public static string PAGE_TITLE_TIMELINE = "Agenda";
         public static string PAGE_TITLE_REFERENTS = "Ansprechpartner";
         public static string PAGE_TITLE_MAP = "Anfahrt";
         public static string PAGE_TITLE_TAXI = "Taxi";
