@@ -17,13 +17,21 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <artina:CircleImage
-				Source="{ Binding LOGO }" 
-				HorizontalOptions="Center"
-				Aspect="AspectFill"
+            <Label 
+				Text="{ Binding GRIAL_ICON }"
+                Style="{ StaticResource FontIcon }"
+                TextColor="{ Binding AccentColor }" 
+				VerticalTextAlignment="Center" 
+				HorizontalTextAlignment="Center"
+                HorizontalOptions="Start"
 				WidthRequest="60" 
-				HeightRequest="60"
-				VerticalOptions="Center" />
+				HeightRequest="60">
+                <Label.FontSize>
+                    <OnIdiom x:TypeArguments="x:Double"
+								Phone="30"
+								Tablet="40"/>
+                </Label.FontSize>
+            </Label>
 
 			<StackLayout
 				Grid.Column="1"

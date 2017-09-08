@@ -25,7 +25,7 @@
 				<Label 
 					Text="{ Binding GRIAL_ICON }"
                     Style="{ StaticResource FontIcon }"
-					TextColor="{ Binding BackgroundColor }" 
+					TextColor="{ Binding AccentColor }" 
 					HorizontalOptions="Start"
 					VerticalTextAlignment="Center" 
 					HorizontalTextAlignment="Center">

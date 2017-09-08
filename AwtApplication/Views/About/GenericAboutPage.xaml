@@ -92,7 +92,7 @@
                     <!--TITLE-->
                     <Label 
 						Style="{StaticResource AboutTitle}"
-						Text="Special thanks"
+						Text="Credits/Special thanks"
 						FontAttributes="Bold"
 						HorizontalTextAlignment="Center"/>
 
