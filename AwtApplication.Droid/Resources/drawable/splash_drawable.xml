@@ -11,11 +11,4 @@
 					android:bottom="0dip" />
 				</shape>
 		</item>
-    <item 
-      android:layout_width="60dp"
-      android:layout_height="60dp"
-      android:gravity="center">
-      <bitmap android:src="@drawable/icon"
-			android:gravity="fill_horizontal|fill_vertical|center" />
-		</item>
 	</layer-list>
