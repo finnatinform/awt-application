@@ -21,8 +21,8 @@ namespace AwtApplication.Params
         public static string PAGE_TITLE_REFERENTS = "Ansprechpartner";
         public static string PAGE_TITLE_MAP = "Anfahrt";
         public static string PAGE_TITLE_TAXI = "Taxi";
-        public static string PAGE_TITLE_MY_TIMELINE_LONG = "Vorgemerkte Veranstaltungen";
-        public static string PAGE_TITLE_TIMELINE_LONG = "Alle Veranstaltungen";
+        public static string PAGE_TITLE_MY_TIMELINE_LONG = "Meine Agenda";
+        public static string PAGE_TITLE_TIMELINE_LONG = "Agenda";
 
         public static string LOADING_ERROR = "Es ist ein Fehler beim Übertragen der Daten aufgetreten. Bitte versuchen Sie es später erneut.";
         public static string ERROR = "Fehler";

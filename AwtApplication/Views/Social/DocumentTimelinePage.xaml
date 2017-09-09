@@ -6,7 +6,7 @@
 	xmlns:local="clr-namespace:AwtApplication;assembly=AwtApplication"
 	x:Class="AwtApplication.DocumentTimelinePage"
 	BackgroundColor="{ DynamicResource BasePageColor }"
-	Title="Veranstaltungen">
+	Title="Agenda">
 	
 	<ContentPage.Resources>
 		<ResourceDictionary>

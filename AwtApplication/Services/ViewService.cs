@@ -74,7 +74,7 @@ namespace AwtApplication.Services
         {
             if ( _Answer == "error" )
             {
-                NotificationService.ShowAlert("Error","Es ist ein Fehler beim LAden des Events aufgetreten","SCHLIEßEN");
+                NotificationService.ShowAlert(Messages.ERROR,Messages.ERROR_AT_LOADING,Messages.CLOSE);
             } else
             {
                 List<Event> HEvent = JsonConvert.DeserializeObject<List<Event>>(_Answer);

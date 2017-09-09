@@ -8,7 +8,7 @@ using Plugin.CurrentActivity;
 namespace AwtApplication.Droid
 {
 	//You can specify additional application information in this attribute
-    [Application]
+    [Application(Debuggable = false)]
     public class MainApplication : Application, Application.IActivityLifecycleCallbacks
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer)
